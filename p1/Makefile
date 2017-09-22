@@ -9,7 +9,7 @@ TARGETS= practica1
 # la opcion -g sirve para permitir la depuraci�n
 #
 CFLAGS=    -g -DXWINDOWS -DSHM -I/usr/include -I.
-CXXFLAGS=  -g -DXWINDOWS -DSHM -I/usr/include -I.
+CXXFLAGS=  -g -DXWINDOWS -DSHM -I/usr/include -I. -std=c++11
 
 # banderas pra el enlazador
 # Se indica directorios donde encontrar las funciontecas con -L. Usando -l seguido del
@@ -35,8 +35,8 @@ default : $(TARGETS)
 # regla de ejecucion
 #
 $(TARGETS) :
-	$(CC) $(SRC)/practica1.cc -o $(BIN)/practica1  $(CXXFLAGS) $(LDFLAGS)
 	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/figura.cc  -o $(OBJ)/figura.o -I $(INC)
+	$(CC) $(SRC)/practica1.cc  $(OBJ)/figura.o -o $(BIN)/practica1  $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 #
 #

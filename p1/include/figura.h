@@ -9,6 +9,8 @@ class Figura {
 private:
   std::vector<_vertex3f> vertices;
   std::vector<_vertex3i> caras;
+  int n_vertices;
+  int n_caras;
 
 public:
   //Constructor
@@ -18,6 +20,19 @@ public:
   */
   Figura(std::vector<_vertex3f> v, std::vector<_vertex3i> c);
 
+  /**
+  @brief Devuelve el vector de vertices
+  */
+  vector<_vertex3f> getVertices();
+
+  /**
+  @brief Devuelve el vector de caras
+  */
+  vector<_vertex3i> getCaras();
+
+  int getVerticesSize();
+
+  int getCarasSize();
 };
 
 #endif

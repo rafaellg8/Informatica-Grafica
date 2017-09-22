@@ -10,9 +10,13 @@
 #include "stdio.h"
 #include <GL/glut.h>
 #include <ctype.h>
-
+#include "vertex.h"
+#include "figura.h"
 // tamaño de los ejes
 const int AXIS_SIZE=5000;
+
+Figura cubo;
+Figura tetraedro;
 
 // variables que definen la posicion de la camara en coordenadas polares
 GLfloat Observer_distance;
@@ -95,15 +99,23 @@ glEnd();
 
 void draw_objects()
 {
-GLfloat Vertices[8][3]= {{5,0,0},{4,4,0},{0,5,0},{-4,4,0},{-5,0,0},{-4,-4,0},{0,-5,0},{4,-4,0}};
-int i;
+// GLfloat Vertices[8][3]= {{5,0,0},{4,4,0},{0,5,0},{-4,4,0},{-5,0,0},{-4,-4,0},{0,-5,0},{4,-4,0}};
+// int i;
+std::vector<_vertex3f> v_cubo {{0,0,0},{4,0,0},{4,4,0},{0,4,0},{0,0,4},{4,0,4},{4,4,4},{0,4,4}}; //Vertices cubo
+//Caras del cubo
+std::vector<_vertex3i> c_cubo {{7,4,6},{4,5,6},{5,1,6},{1,2,6},{1,0,2},{0,3,2},{4,0,7},{0,3,7},{7,6,2},{7,2,3},{4,0,5},{5,0,1}};
 
-glColor3f(0,1,0);
-glPointSize(4);
+cubo = Figura (v_cubo,c_cubo);
 
+glColor3f(0.3,0.3,0.3);
+glPointSize(10);
+
+//Estaria bien tener una clase "pintar" que se le pase el objeto, y la primitiva, todo lo demas lo haga
+//En plan pintar(figura,puntos) y hacer todo esto
 glBegin(GL_POINTS);
-for (i=0;i<8;i++){
-	glVertex3fv((GLfloat *) &Vertices[i]);
+for (i=0;i<cubo.getVerticesSize();i++){
+	// glVertex3fv((GLfloat *) &v_cubo[i]);
+		 glVertex3fv((GLfloat *) (&cubo.getVertices()[i]));
 	}
 glEnd();
 }
@@ -223,7 +235,7 @@ int main(int argc, char **argv)
 {
 
 //Figuras
-
+std::vector<int> v;
 
 // se llama a la inicialización de glut
 glutInit(&argc, argv);
@@ -247,7 +259,7 @@ glutInitWindowSize(UI_window_width,UI_window_height);
 
 // llamada para crear la ventana, indicando el titulo (no se visualiza hasta que se llama
 // al bucle de eventos)
-glutCreateWindow("Práctica 1");
+glutCreateWindow("P1 - Rafael Lachica Garrido");
 
 // asignación de la funcion llamada "dibujar" al evento de dibujo
 glutDisplayFunc(draw_scene);
