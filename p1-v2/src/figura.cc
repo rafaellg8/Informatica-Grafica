@@ -5,16 +5,15 @@ Figura::Figura(){
 }
 
 Figura::Figura(vector<_vertex3f> v, vector<_vertex3i> c){
+  insertarDatos(v,c);
+}
+
+void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
   this->vertices = v;
   this->caras = c;
   n_vertices = this->vertices.size();
   n_caras = this->caras.size();
-
-  for (int i=0;i<n_caras;i++){
-    tablaVertices.push_back(vertices[i]); //Vamos asignando cada 3 caras los 3 vertices, tenemos una tabla de vertices repetidos con las caras
-  }
-
-  tamanioTabla = tablaVertices.size();
+  creaTabla();
 }
 
 vector<_vertex3f>Figura::getVertices(){
@@ -35,13 +34,14 @@ int Figura::getCarasSize(){
 }
 
 void Figura::draw(GLenum tipo, float tamanioPunto){
+
   glPointSize(tamanioPunto);
 
   if (tipo==GL_POINTS){
     glBegin(tipo);
   for (int i=0;i<n_vertices;i++){
   	// glVertex3fv((GLfloat *) &v_cubo[i]);
-  		 glVertex3fv((GLfloat *) &vertices[i]);
+  		 glVertex3fv((GLfloat *) &this->vertices[i]);
   	}
     glEnd();
   }
@@ -79,7 +79,13 @@ void Figura::draw(GLenum tipo, float tamanioPunto){
         glEnd();
       }
     }
+}
 
-
-
+void Figura::creaTabla(){
+  for (int i=0;i<n_caras;i++){
+    tablaVertices.push_back(vertices[i].x); //Vamos asignando cada 3 caras los 3 vertices, tenemos una tabla de vertices repetidos con las caras
+    tablaVertices.push_back(vertices[i].y);
+    tablaVertices.push_back(vertices[i].z);
+  }
+  tamanioTabla = tablaVertices.size();
 }

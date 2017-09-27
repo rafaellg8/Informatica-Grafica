@@ -30,7 +30,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/practica1.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o
+OBJECTS= $(OBJ)/practica1.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o
 # orden que sera ejecutada por defecto
 #
 default : $(TARGETS)
@@ -40,7 +40,7 @@ default : $(TARGETS)
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica1.o: $(OBJECTS)
-	$(CC) $(SRC)/practica1.cc $(OBJ)/ejes.o $(OBJ)/escena.o $(OBJ)/figura.o -o $(BIN)/practica1  $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) $(SRC)/practica1.cc $(OBJ)/ejes.o $(OBJ)/escena.o $(OBJ)/figura.o $(OBJ)/cubo.o -o $(BIN)/practica1  $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc
 	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
@@ -50,6 +50,9 @@ $(OBJ)/ejes.o: $(SRC)/ejes.cc
 
 $(OBJ)/figura.o: $(SRC)/figura.cc
 	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/figura.cc  -o $(OBJ)/figura.o -I $(INC)
+
+$(OBJ)/cubo.o: $(SRC)/cubo.cc
+	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/cubo.cc  -o $(OBJ)/cubo.o -I $(INC)
 
 #
 #

@@ -12,10 +12,16 @@ class Figura {
 private:
   std::vector<_vertex3f> vertices;
   std::vector<_vertex3i> caras;
-  std::vector<_vertex3f> tablaVertices;//Correspondencia vertices y caras
+  std::vector<float> tablaVertices;//Correspondencia vertices y caras
   int n_vertices;
   int n_caras;
   int tamanioTabla;
+
+protected:
+  /**
+  @brief Funcion para insertar los vertices y caras
+  */
+  void insertarDatos(vector<_vertex3f> v,vector<_vertex3i> c);
 
 public:
   //Constructor
@@ -40,6 +46,11 @@ public:
   int getCarasSize();
 
   void draw(GLenum tipo,float tamanioPunto);
+
+  /**
+  @brief Tabla de Triangulos, con las caras
+  */
+  void creaTabla();
 };
 
 #endif

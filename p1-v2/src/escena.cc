@@ -6,8 +6,9 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "escena.h"
-#include "figura.h"
+// #include "figura.h"
 #include "vertex.h"
+#include "cubo.h"
 
 GLenum gltipo;
 
@@ -18,6 +19,10 @@ Escena::Escena(){
     Observer_angle_x = Observer_angle_y=0;
     ejes.changeAxisSize(5000);
     gltype = GL_POINTS; //Inicializacion por defecto
+
+    Cubo cubo; //Creamos el cubo
+    figuras.push_back(cubo); //Insertamos el cubo en la escena
+
 }
 
 void Escena::inicializar(int UI_window_width,int UI_window_height) {
@@ -43,8 +48,10 @@ void Escena::draw_objects() {
   std::vector<_vertex3i> c_cubo {{0,1,2},{0,2,3},{1,5,6},{1,6,2},{5,4,7},{5,7,6},{4,0,3},{4,3,7},{3,2,6},{3,6,7},{4,5,1},{4,1,0}};
 
 
-  Figura cubo (v_cubo,c_cubo);
-  cubo.draw(gltype,4.5);
+  // Cubo cubo;
+  figuras[0].draw(gltype,4.5);
+  // Figura figura(v_cubo,c_cubo);
+  // figura.draw(gltype,4.5);
 }
 
 

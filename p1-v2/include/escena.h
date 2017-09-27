@@ -2,12 +2,17 @@
 #define _ESCENA_H
 
 #include "ejes.h"
+#include "figura.h"
+#include <vector>
 
 class Escena {
 private:
 // tama�o de los ejes
 #define AXIS_SIZE 5000
 Ejes ejes;
+
+//Vector de figuras en la escena
+vector<Figura> figuras;
 
 // variables que definen la posicion de la camara en coordenadas polares
 GLfloat Observer_distance;
@@ -28,7 +33,7 @@ private:
 
 
 public:
-     Escena();
+  Escena();
 	void inicializar(int UI_window_width,int UI_window_height);
 	void redimensionar(int newWidth,int newHeight) ;
 
