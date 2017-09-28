@@ -45,7 +45,7 @@ public:
 
   int getCarasSize();
 
-  void draw(GLenum tipo,float tamanioPunto);
+  void draw(int tipo,float tamanioPunto);
 
   /**
   @brief Tabla de Triangulos, con las caras

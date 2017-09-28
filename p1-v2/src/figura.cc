@@ -33,52 +33,59 @@ int Figura::getCarasSize(){
   return n_caras;
 }
 
-void Figura::draw(GLenum tipo, float tamanioPunto){
+void Figura::draw(int tipo, float tamanioPunto){
 
   glPointSize(tamanioPunto);
 
-  if (tipo==GL_POINTS){
-    glBegin(tipo);
-  for (int i=0;i<n_vertices;i++){
-  	// glVertex3fv((GLfloat *) &v_cubo[i]);
-  		 glVertex3fv((GLfloat *) &this->vertices[i]);
-  	}
-    glEnd();
-  }
-    else{
-      // glEnableClientState( GL_VERTEX_ARRAY ); //habilitar vertex array
-      // // especificar puntero a tabla de coords. de vértices
-      // glVertexPointer( 3, GL_FLOAT, 0,&vertices[0]);
-      // // dibujar usando vértices indexados
-      // glDrawElements( GL_TRIANGLES, tamanioTabla+1,GL_UNSIGNED_INT, &tablaVertices[0][0]);
-      for (int i=0;i<n_caras;i++){
+  //Por defecto pintamos en negro
+  glColor3f(0.0,0.0,0.0);
 
-          if (tipo == GL_LINES){
+  switch (tipo) {
+    case 0:
+      glBegin(GL_POINTS);
+        for (int i=0;i<n_vertices;i++){
+        // glVertex3fv((GLfloat *) &v_cubo[i]);
+           glVertex3fv((GLfloat *) &this->vertices[i]);
+        }
+      glEnd();
+    break;
+
+    case 1:
+
+      for (int i=0;i<n_caras;i++){
             glBegin(GL_LINE_LOOP);
             glVertex3fv((GLfloat *) &vertices[caras[i][0]]);
             glVertex3fv((GLfloat *) &vertices[caras[i][1]]);
             glVertex3fv((GLfloat *) &vertices[caras[i][2]]);
+            glEnd();
           }
-          else if (tipo == GL_TRIANGLES) //Triangulos
-          {
-            glBegin(tipo);
-            glVertex3fv((GLfloat *) &vertices[caras[i][0]]);
-            glVertex3fv((GLfloat *) &vertices[caras[i][1]]);
-            glVertex3fv((GLfloat *) &vertices[caras[i][2]]);
-          }else {//ajedrez
-            glBegin(tipo);
-            if (i%2 == 0)
-              glColor3f(255.0,0.0,0.0);
-            else
-              glColor3f(0,255.0,0);
+    break;
 
-            glVertex3fv((GLfloat *) &vertices[caras[i][0]]);
-            glVertex3fv((GLfloat *) &vertices[caras[i][1]]);
-            glVertex3fv((GLfloat *) &vertices[caras[i][2]]);
-          }
+    case 2:
+    for (int i=0;i<n_caras;i++){
+      glBegin(GL_TRIANGLES);
+        glVertex3fv((GLfloat *) &vertices[caras[i][0]]);
+        glVertex3fv((GLfloat *) &vertices[caras[i][1]]);
+        glVertex3fv((GLfloat *) &vertices[caras[i][2]]);
         glEnd();
-      }
     }
+    break;
+
+    case 3:
+    glBegin(GL_TRIANGLES);
+    for (int i=0;i<n_caras;i++){
+      if (i%2 == 0)
+        glColor3f(255.0,0.0,0.0);
+      else
+        glColor3f(0,255.0,0);
+
+      glVertex3fv((GLfloat *) &vertices[caras[i][0]]);
+      glVertex3fv((GLfloat *) &vertices[caras[i][1]]);
+      glVertex3fv((GLfloat *) &vertices[caras[i][2]]);
+    }
+    glEnd();
+    break;
+  }
 }
 
 void Figura::creaTabla(){

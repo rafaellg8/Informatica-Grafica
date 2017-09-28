@@ -3,6 +3,10 @@
 
 #include "ejes.h"
 #include "figura.h"
+#include "cubo.h"
+#include "tetraedro.h"
+#include "piramide.h"
+
 #include <vector>
 
 class Escena {
@@ -18,9 +22,11 @@ vector<Figura> figuras;
 GLfloat Observer_distance;
 GLfloat Observer_angle_x;
 GLfloat Observer_angle_y;
-GLenum gltype;
+int gltype; //0 puntos, 1 lineas, 2 solido, 3 ajedrez
 // variables que controlan la ventana y la transformacion de perspectiva
 GLfloat Width,Height,Front_plane,Back_plane;
+
+int figuraActual = 0; //figura actual que se va a pintar
 
 private:
 	void clear_window();

@@ -7,22 +7,22 @@
 #include <GL/glut.h>
 #include "escena.h"
 // #include "figura.h"
-#include "vertex.h"
-#include "cubo.h"
-
-GLenum gltipo;
-
 Escena::Escena(){
     Front_plane=50;
     Back_plane=2000;
     Observer_distance = 4*Front_plane;
     Observer_angle_x = Observer_angle_y=0;
     ejes.changeAxisSize(5000);
-    gltype = GL_POINTS; //Inicializacion por defecto
+    gltype = 0; //Inicializacion por defecto
 
     Cubo cubo; //Creamos el cubo
+    Tetraedro tetraedro;
+    Piramide piramide;
     figuras.push_back(cubo); //Insertamos el cubo en la escena
+    figuras.push_back(tetraedro);
+    figuras.push_back(piramide);
 
+    figuraActual = 0; //Por defecto la figura que se pinta será la primera
 }
 
 void Escena::inicializar(int UI_window_width,int UI_window_height) {
@@ -43,15 +43,8 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
 // Funcion que dibuja objetos en la escena
 //***************************************************************************
 void Escena::draw_objects() {
-  std::vector<_vertex3f> v_cubo {{0,0,0},{50,0,0},{50,50,0},{0,50,0},{0,0,50},{50,0,50},{50,50,50},{0,50,50}}; //Vertices cubo
-  //Caras del cubo
-  std::vector<_vertex3i> c_cubo {{0,1,2},{0,2,3},{1,5,6},{1,6,2},{5,4,7},{5,7,6},{4,0,3},{4,3,7},{3,2,6},{3,6,7},{4,5,1},{4,1,0}};
-
-
   // Cubo cubo;
-  figuras[0].draw(gltype,4.5);
-  // Figura figura(v_cubo,c_cubo);
-  // figura.draw(gltype,4.5);
+  figuras[figuraActual].draw(gltype,4.5);
 }
 
 
@@ -65,24 +58,42 @@ void Escena::dibujar() {
 
 int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
   std::cout << "Tecla" << Tecla1<< std::endl;
-	if (toupper(Tecla1)=='Q') return 1;
-  else if (toupper(Tecla1)=='P'){
-    gltype = GL_POINTS;
-    return 0;
+  switch (toupper(Tecla1)) {
+    case 'Q':
+      return 1;
+    break;
+    case 'P':
+      gltype = 0;
+      return 0;
+    break;
+    case 'L':
+      gltype = 1;
+      return 0;
+    break;
+    case 'T':
+      gltype = 2;
+      return 0;
+    break;
+    case 'A':
+      gltype = 3;
+      return 0;
+    break;
+
+    case '1':
+      figuraActual = 0;
+      return 0;
+    break;
+
+    case '2':
+      figuraActual = 1;
+      return 0;
+    break;
+
+    case '3':
+      figuraActual = 2;
+      return 0;
+    break;
   }
-  else if (toupper(Tecla1)=='L'){
-    gltype = GL_LINES;
-    return 0;
-  }
-  else if (toupper(Tecla1)=='T'){
-    gltype = GL_TRIANGLES;
-    return 0;
-  }
-  else if (toupper(Tecla1)=='A'){
-    gltype = GL_TRIANGLE_STRIP;
-    return 0;
-  }
-  else return 0;
 }
 
 void Escena::teclaEspecial(int Tecla1,int x,int y) {

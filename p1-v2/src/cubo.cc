@@ -7,3 +7,7 @@ Cubo::Cubo(){
 
   insertarDatos(vertices,caras);
 }
+
+Cubo::Cubo(std::vector<_vertex3f> v,std::vector<_vertex3i> c){
+  insertarDatos(v,c);
+}
