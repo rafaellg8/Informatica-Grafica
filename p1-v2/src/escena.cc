@@ -7,6 +7,9 @@
 #include <GL/glut.h>
 #include "escena.h"
 // #include "figura.h"
+
+int transformacion=0;
+
 Escena::Escena(){
     Front_plane=50;
     Back_plane=2000;
@@ -44,7 +47,11 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
 //***************************************************************************
 void Escena::draw_objects() {
   // Cubo cubo;
-  figuras[figuraActual].draw(gltype,4.5);
+    if(transformacion){
+    glRotatef(45.0,1.0,1.0,1.0);
+    figuras[figuraActual].draw(gltype,4.5);    
+  }
+    figuras[figuraActual].draw(gltype,4.5);
 }
 
 
@@ -91,6 +98,13 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
 
     case '3':
       figuraActual = 2;
+      return 0;
+    break;
+
+    case 'Z':
+      if (!transformacion)
+        transformacion = 1;
+      else transformacion = 0;
       return 0;
     break;
   }
