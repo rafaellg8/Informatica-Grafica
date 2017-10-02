@@ -1,3 +1,12 @@
+/**
+Class: Figura
+
+Author: Rafael Lachica Garrido
+
+Description: Piramide
+
+*/
+
 #ifndef _PIRAMIDE_
 #define _PIRAMIDE_
 #include "figura.h"
