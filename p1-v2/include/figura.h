@@ -1,15 +1,3 @@
-/**
-   Class: Figura
-
-   Author: Rafael Lachica Garrido
-
-   Description: Figura. Clase general de cualquier objeto, de la que heredarán otros objetos, figuras geométricas
-             Se usa internamente la clase vertex como tipo, ( estructura x,y,z), y utilizamos unas estructuras auxiliares
-            para su dibujado, las tablaCaras, y tablaVertices, que lo que tienen es de forma lineal cada coordenada x,y,z en un array.
-
- */
-
-
 #ifndef _figura_
 #define _figura_
 
@@ -60,6 +48,14 @@ public:
   int getCarasSize();
 
   void draw(int tipo,float tamanioPunto);
+
+  void ajedrez();
+
+  void puntos();
+
+  void solido();
+
+  void lineas();
 
   /**
   Tabla de Triangulos, con las caras
