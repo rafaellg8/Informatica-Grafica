@@ -17,8 +17,10 @@ using namespace std;
 class Tetraedro : public Figura {
 
 public:
-Tetraedro();
-Tetraedro(vector<_vertex3f> ver, vector<_vertex3i> caras);
+  Tetraedro();
+  Tetraedro(float lado);
+  Tetraedro(vector<_vertex3f> ver, vector<_vertex3i> caras);
+  Tetraedro(vector<_vertex3f> ver, vector<_vertex3i> caras,float lado);
 };
 
 #endif

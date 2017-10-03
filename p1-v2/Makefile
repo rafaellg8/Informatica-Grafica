@@ -78,6 +78,7 @@ superclean:
 	rm -f $(OBJ)/*.o
 	#rm *~
 	rm -f $(TARGETS)
+	rm $(BIN)/*
 
 #
 #

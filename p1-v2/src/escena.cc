@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "escena.h"
+using namespace std;
 // #include "figura.h"
 
 int transformacion=0;
@@ -18,12 +19,27 @@ Escena::Escena(){
         ejes.changeAxisSize(5000);
         gltype = 0; //Inicializacion por defecto
 
-        Cubo cubo; //Creamos el cubo
-        Tetraedro tetraedro;
-        Piramide piramide;
-        figuras.push_back(cubo); //Insertamos el cubo en la escena
-        figuras.push_back(tetraedro);
-        figuras.push_back(piramide);
+        float lado;
+        cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
+        cin>>lado;
+
+        if (lado>0){
+          Cubo cubo(lado); //Creamos el cubo
+          Tetraedro tetraedro(lado);
+          Piramide piramide(lado);
+          figuras.push_back(cubo); //Insertamos el cubo en la escena
+          figuras.push_back(tetraedro);
+          figuras.push_back(piramide);
+        }
+        else{
+          Cubo cubo;
+          Tetraedro tetraedro;
+          Piramide piramide;
+          figuras.push_back(cubo); //Insertamos el cubo en la escena
+          figuras.push_back(tetraedro);
+          figuras.push_back(piramide);
+        }
+
 
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
 }

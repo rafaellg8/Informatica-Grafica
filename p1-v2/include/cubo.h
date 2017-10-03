@@ -16,7 +16,9 @@ class Cubo : public Figura{
 
 public:
   Cubo();
+  Cubo(float lado);
   Cubo(vector<_vertex3f> ver, vector<_vertex3i> caras);
+  Cubo(vector<_vertex3f> ver, vector<_vertex3i> caras,float lado);
 };
 
 #endif
