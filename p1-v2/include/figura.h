@@ -14,6 +14,7 @@ private:
   std::vector<_vertex3i> caras;
   std::vector<float> tablaVertices;//Correspondencia vertices y caras
   std::vector<int> tablaCaras;//Correspondencia vertices y caras
+  std::vector<float> colores; //Color para cada vertice
   int n_vertices;
   int n_caras;
   int tamanioTabla;
@@ -47,6 +48,14 @@ public:
   int getCarasSize();
 
   void draw(int tipo,float tamanioPunto);
+
+  void ajedrez();
+
+  void puntos();
+
+  void solido();
+
+  void lineas();
 
   /**
   Tabla de Triangulos, con las caras
