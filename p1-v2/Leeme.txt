@@ -1,0 +1,31 @@
+Rafael Lachica Garrido
+
+Modo de visualización:
+
+- Triángulos: letra T
+
+- Puntos: letra P
+
+- Líneas: letra L
+
+- Ajedrez: letra A
+
+
+Figuras:
+
+- Cubo: pulsar 1
+
+- Tetraedro: pulsar 2
+
+- Pirámide: pulsaar 3
+
+
+Notas:
+
+He creado como figura extra una pirámide.
+
+He usado como forma de guardar los vértices y caras la clase vertex. Pensando en futuras prácticas.
+Para poder pintarlo usando GlDrawElements, he creado 2 vectores auxiliares, tablaVertices y tablaCaras, más simples, que a la hora
+de crear los objetos en el constructor y una vez introducidos los datos, se inicializan estas tablas con los datos que ya tenemos.
+
+
