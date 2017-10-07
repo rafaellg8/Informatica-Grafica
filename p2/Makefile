@@ -15,8 +15,7 @@ CXXFLAGS=  -g -I/usr/include -I. -std=c++11
 # Se indica directorios donde encontrar las funciontecas con -L. Usando -l seguido del
 # nombre se indica la funcionteca que se desea enlazar.
 #
-LDFLAGS=  -lGLU -lGL -lglut
-
+LDFLAGS= -framework OpenGL -framework GLUT
 # definicion del compilador
 #
 CC = g++
@@ -43,28 +42,28 @@ $(OBJ)/practica1.o: $(OBJECTS)
 	$(CC) $(SRC)/practica1.cc $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/escena.o -o $(BIN)/practica1  $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
 
 $(OBJ)/ejes.o: $(SRC)/ejes.cc
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/ejes.cc  -o $(OBJ)/ejes.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/ejes.cc  -o $(OBJ)/ejes.o -I $(INC)
 
 $(OBJ)/figura.o: $(SRC)/figura.cc
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/figura.cc  -o $(OBJ)/figura.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/figura.cc  -o $(OBJ)/figura.o -I $(INC)
 
 $(OBJ)/cubo.o: $(SRC)/cubo.cc
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/cubo.cc  -o $(OBJ)/cubo.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/cubo.cc  -o $(OBJ)/cubo.o -I $(INC)
 
 $(OBJ)/tetraedro.o: $(SRC)/tetraedro.cc
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/tetraedro.cc  -o $(OBJ)/tetraedro.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/tetraedro.cc  -o $(OBJ)/tetraedro.o -I $(INC)
 
 $(OBJ)/piramide.o: $(SRC)/piramide.cc
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/piramide.cc  -o $(OBJ)/piramide.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/piramide.cc  -o $(OBJ)/piramide.o -I $(INC)
 
 $(OBJ)/read_ply.o:
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/read_ply.cc  -o $(OBJ)/read_ply.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/read_ply.cc  -o $(OBJ)/read_ply.o -I $(INC)
 
 $(OBJ)/file_ply_stl.o:
-	$(CC) $(CXXFLAGS) $(LDFLAGS) -c $(SRC)/file_ply_stl.cc  -o $(OBJ)/file_ply_stl.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/file_ply_stl.cc  -o $(OBJ)/file_ply_stl.o -I $(INC)
 
 #
 #

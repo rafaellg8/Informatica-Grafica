@@ -56,11 +56,11 @@ void Figura::draw(int tipo, float tamanioPunto){
                 break;
 
         case 1:
-                solido();
+                lineas();
                 break;
 
         case 2:
-                lineas();
+                solido();
                 break;
 
         case 3:

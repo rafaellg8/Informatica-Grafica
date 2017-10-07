@@ -1,10 +1,19 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <GLUT/glut.h>
+#else
+#include <GL/gl.h>
+#include <GL.glut.h>
+#endif
+
 #include <cstdio>
 #include <iostream>
-#include <GL/gl.h>
-#include <GL/glut.h>
+
+
 #include "escena.h"
 using namespace std;
 // #include "figura.h"
@@ -124,6 +133,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 return 0;
                 break;
         }
+        return 0; //Si no es ninguna de esta tecla, siempre devuelva algo
 }
 
 void Escena::teclaEspecial(int Tecla1,int x,int y) {
