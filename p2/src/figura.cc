@@ -1,4 +1,5 @@
 #include "figura.h"
+#include <cmath>
 
 Figura::Figura(){
         n_vertices = n_caras = 0;
@@ -24,6 +25,7 @@ void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
         }
         creaTabla();
         extremosFigura();
+        calcularNormales(); //Creamos las normales a las caras
 }
 
 vector<_vertex3f>Figura::getVertices(){
@@ -63,6 +65,53 @@ void Figura::extremosFigura(){
         }
 }
 
+vector<_vertex3f> Figura::productoVectorial(vector<_vertex3f>P, vector<_vertex3f> Q){
+// Nx = Py*Qz - Pz*Qy
+// Ny = Pz*Qx - Px*Qz
+// Nz = Px*Qy - Py*Qx
+  float x,y,z = 0.0;
+
+  x = P.back().y*Q.back().z - P.back().z*Q.back().y;
+  y = P.back().z*Q.back().x - P.back().x*Q.back().z;
+  z = P.back().x*Q.back().y - P.back().y*Q.back().x;
+
+  vector<_vertex3f>N;
+  N.push_back({x,y,z});
+
+  return N;
+}
+
+void Figura::calcularNormales(){
+  //P = V2-V1 = (x2,y2,z2)-(x1,y1,z1) = (x2-x1, y2-y1, z2-z1)
+
+  //Q = V3-V1 = (x3,y3,z3)-(x1,y1,z1) = (x3-x1, y3-y1, z3-z1)
+
+  vector<_vertex3f> vectorP,vectorQ;
+
+  for (int i=0;i<caras.size();i+=3){
+    float x = vertices[i+1].x - vertices[i].x;
+    float y = vertices[i+1].y - vertices[i].y;
+    float z = vertices[i+1].z - vertices[i].z;
+
+    //añadimos las coordenadas de P
+    vectorP.push_back({x,y,z});
+
+    x = vertices[i+2].x - vertices[i].x;
+    y = vertices[i+2].y - vertices[i].y;
+    z = vertices[i+2].z - vertices[i].z;
+
+    vectorQ.push_back({x,y,z});
+
+    vector<_vertex3f> N = productoVectorial(vectorP,vectorQ);
+
+    //Calculamos el módulo
+    float modulo = sqrt(N.back().x*N.back().x + N.back().y*N.back().y + N.back().z*N.back().z);
+
+    //Normalizamos Nx/modulo, Ny/modulo, Nz/modulo
+    normales.push_back({N.back().x/modulo,N.back().y/modulo,N.back().z/modulo});
+    normales.push_back({(N.back().x/modulo)+10,(N.back().y/modulo)+10,(N.back().z/modulo)+10});
+  }
+}
 
 void Figura::draw(int tipo, float tamanioPunto){
 
@@ -89,9 +138,23 @@ void Figura::draw(int tipo, float tamanioPunto){
         case 3:
                 ajedrez();
                 break;
+        case 4:
+                tipoNormales();
+                break;
         }
 }
 
+void Figura::tipoNormales(){
+  puntos();
+  glColor3f(1.5,0.0,0.0);
+  glBegin(GL_LINES);
+  glPointSize(3.5);
+  for (int i=0;i<normales.size();i+=2){
+    glVertex3f(normales[i].x,normales[i].y,normales[i].z);
+    glVertex3f(normales[i+1].x,normales[i+1].y,normales[i+1].z);
+    glEnd();
+  }
+}
 
 void Figura::solido(){
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -160,4 +223,10 @@ void Figura::creaTabla(){
                 tablaCaras.push_back(caras[i].z);
         }
         tamanioTabla = tablaCaras.size();
+
+        for (int i=0;i<normales.size();i++){
+                tablaNormales.push_back(normales[i].x);
+                tablaNormales.push_back(normales[i].y);
+                tablaNormales.push_back(normales[i].z);
+        }
 }

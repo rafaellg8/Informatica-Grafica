@@ -30,26 +30,26 @@ Escena::Escena(){
         ejes.changeAxisSize(5000);
         gltype = 0; //Inicializacion por defecto
 
-        // float lado;
-        // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
-        // cin>>lado;
-        //
-        // if (lado>0){
-        //   Cubo cubo(lado); //Creamos el cubo
-        //   Tetraedro tetraedro(lado);
-        //   Piramide piramide(lado);
-        //   figuras.push_back(cubo); //Insertamos el cubo en la escena
-        //   figuras.push_back(tetraedro);
-        //   figuras.push_back(piramide);
-        // }
-        // else{
-        //   Cubo cubo;
-        //   Tetraedro tetraedro;
-        //   Piramide piramide;
-        //   figuras.push_back(cubo); //Insertamos el cubo en la escena
-        //   figuras.push_back(tetraedro);
-        //   figuras.push_back(piramide);
-        // }
+        float lado;
+        cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
+        cin>>lado;
+
+        if (lado>0){
+          Cubo cubo(lado); //Creamos el cubo
+          Tetraedro tetraedro(lado);
+          Piramide piramide(lado);
+          figuras.push_back(cubo); //Insertamos el cubo en la escena
+          figuras.push_back(tetraedro);
+          figuras.push_back(piramide);
+        }
+        else{
+          Cubo cubo;
+          Tetraedro tetraedro;
+          Piramide piramide;
+          figuras.push_back(cubo); //Insertamos el cubo en la escena
+          figuras.push_back(tetraedro);
+          figuras.push_back(piramide);
+        }
 
         string inputFile;
         cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
@@ -90,6 +90,7 @@ void Escena::dibujar() {
         change_observer();
         draw_axis();
         draw_objects();
+        change_projection();
 }
 
 int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
@@ -114,6 +115,10 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 gltype = 3;
                 return 0;
                 break;
+        case 'N':
+                gltype = 4;
+                return 0;
+                break;
 
         case '1':
                 figuraActual = 0;
@@ -129,6 +134,11 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 figuraActual = 2;
                 return 0;
                 break;
+
+                case '4':
+                        figuraActual = 3;
+                        return 0;
+                        break;
 
         case 'Z':
                 if (!transformacion)

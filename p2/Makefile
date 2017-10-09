@@ -40,7 +40,7 @@ default : $(TARGETS)
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica.o: $(OBJECTS)
-	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
