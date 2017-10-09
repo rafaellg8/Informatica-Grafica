@@ -1,3 +1,7 @@
 *.o
 
 bin/*
+
+.DS_STORE
+
+p2/bin/*
