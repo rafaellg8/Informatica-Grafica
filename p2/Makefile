@@ -16,7 +16,14 @@ CXXFLAGS=  -g -I/usr/include -I. -std=c++11 -O3
 # Se indica directorios donde encontrar las funciontecas con -L. Usando -l seguido del
 # nombre se indica la funcionteca que se desea enlazar.
 #
+
+OS := $(shell uname)
+ifeq $(OS) Darwin #usando mac osx usamos el framework GLUT
 LDFLAGS= -framework OpenGL -framework GLUT
+else
+LDFLAGS=  -lGLU -lGL -lglut
+endif
+
 # definicion del compilador
 #
 CC = g++
