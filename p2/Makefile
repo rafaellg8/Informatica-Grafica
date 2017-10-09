@@ -18,10 +18,10 @@ CXXFLAGS=  -g -I/usr/include -I. -std=c++11 -O3
 #
 
 OS := $(shell uname)
-ifeq $(OS) Darwin #usando mac osx usamos el framework GLUT
-LDFLAGS= -framework OpenGL -framework GLUT
+ifeq ($(OS),Darwin) #usando mac osx usamos el framework GLUT
+	LDFLAGS= -framework OpenGL -framework GLUT
 else
-LDFLAGS=  -lGLU -lGL -lglut
+	LDFLAGS=  -lGLU -lGL -lglut
 endif
 
 # definicion del compilador
