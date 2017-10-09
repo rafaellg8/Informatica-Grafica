@@ -3,7 +3,7 @@
 
 Figura::Figura(){
         n_vertices = n_caras = 0;
-        anchuraFigura = alturaFigura = 0;
+        anchoMax = altoMax = 0;
 }
 
 Figura::Figura(vector<_vertex3f> v, vector<_vertex3i> c){
@@ -25,7 +25,7 @@ void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
         }
         creaTabla();
         extremosFigura();
-        calcularNormales(); //Creamos las normales a las caras
+        //calcularNormales(); //Creamos las normales a las caras
 }
 
 vector<_vertex3f>Figura::getVertices(){
@@ -45,23 +45,35 @@ int Figura::getCarasSize(){
         return n_caras;
 }
 
-float Figura::getAltura(){
-        return alturaFigura;
+float Figura::getAltoMax(){
+        return altoMax;
 }
 
-float Figura::getAnchura(){
-        return anchuraFigura;
+float Figura::getAnchoMax(){
+        return anchoMax;
+}
+
+float Figura::getAltoMin(){
+        return altoMin;
+}
+
+float Figura::getAnchoMin(){
+        return anchoMin;
 }
 
 void Figura::extremosFigura(){
-        anchuraFigura = vertices[0].x;
-        alturaFigura = vertices[0].y;
+        anchoMax = anchoMin = vertices[0].x;
+        altoMax = anchoMin = vertices[0].y;
 
         for (int i=0; i<vertices.size(); i++) {
-                if (vertices[i].x >= anchuraFigura)
-                        anchuraFigura = vertices[i].x;
-                if (vertices[i].y >= alturaFigura)
-                        alturaFigura = vertices[i].y;
+                if (vertices[i].x > anchoMax)
+                        anchoMax = vertices[i].x;
+                if (vertices[i].y > altoMax)
+                        altoMax = vertices[i].y;
+                if (vertices[i].x< anchoMin)
+                  anchoMin = vertices[i].x;
+                if (vertices[i].y<altoMin)
+                  altoMin = vertices[i].y;
         }
 }
 
@@ -111,6 +123,9 @@ void Figura::calcularNormales(){
     normales.push_back({N.back().x/modulo,N.back().y/modulo,N.back().z/modulo});
     normales.push_back({(N.back().x/modulo)+10,(N.back().y/modulo)+10,(N.back().z/modulo)+10});
   }
+
+  for (int i=0;i<normales.size();i++)
+    cout<<"\nx y z"<<normales[i].x<< " "<<normales[i].y<<" "<<normales[i].z<<endl;
 }
 
 void Figura::draw(int tipo, float tamanioPunto){
@@ -145,6 +160,8 @@ void Figura::draw(int tipo, float tamanioPunto){
 }
 
 void Figura::tipoNormales(){
+  calcularNormales();
+  creaTabla();
   puntos();
   glColor3f(1.5,0.0,0.0);
   glBegin(GL_LINES);

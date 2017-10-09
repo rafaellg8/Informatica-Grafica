@@ -20,8 +20,10 @@ std::vector<float> tablaNormales;
 int n_vertices;
 int n_caras;
 int tamanioTabla;
-float anchuraFigura;
-float alturaFigura;
+float anchoMax;
+float altoMax;
+float anchoMin;
+float altoMin;
 
 
   /**
@@ -76,9 +78,13 @@ void lineas();
 
 void tipoNormales();
 
-float getAltura();
+float getAltoMax();
 
-float getAnchura();
+float getAnchoMax();
+
+float getAltoMin();
+
+float getAnchoMin();
 
 void calcularNormales();
 };

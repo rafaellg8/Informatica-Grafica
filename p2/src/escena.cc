@@ -23,7 +23,7 @@
 int transformacion=0;
 
 Escena::Escena(){
-        Front_plane=5;
+        Front_plane=20;
         Back_plane=2000;
         Observer_distance = 4*Front_plane;
         Observer_angle_x = Observer_angle_y=0;
@@ -90,7 +90,6 @@ void Escena::dibujar() {
         change_observer();
         draw_axis();
         draw_objects();
-        change_projection();
 }
 
 int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
@@ -122,21 +121,25 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
 
         case '1':
                 figuraActual = 0;
+                change_projection();
                 return 0;
                 break;
 
         case '2':
                 figuraActual = 1;
+                change_projection();
                 return 0;
                 break;
 
         case '3':
                 figuraActual = 2;
+                change_projection();
                 return 0;
                 break;
 
                 case '4':
                         figuraActual = 3;
+                        change_projection();
                         return 0;
                         break;
 
@@ -171,7 +174,13 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
 void Escena::change_projection()  {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glFrustum(-figuras[figuraActual].getAnchura(),figuras[figuraActual].getAnchura(),-figuras[figuraActual].getAltura(),figuras[figuraActual].getAltura(),Front_plane,Back_plane);
+        // glFrustum(-Width,Width,-Height,Height,Front_plane,Back_plane);
+        glFrustum(-figuras[figuraActual].getAnchoMax(),
+                  figuras[figuraActual].getAnchoMax(),
+                  -figuras[figuraActual].getAltoMax(),
+                  figuras[figuraActual].getAltoMax(),
+                  Front_plane,
+                  Back_plane);
 }
 
 
