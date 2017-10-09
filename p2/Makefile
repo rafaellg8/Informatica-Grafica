@@ -2,7 +2,7 @@
 #
 # nombre del fichero ejecutable
 #
-TARGETS= practica1
+TARGETS= practica
 
 # banderas para el compilador (C y C++). Se indican los directorios donde se puenden
 # encontrar ficheros para incluir mediante la opcion -I
@@ -30,7 +30,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/practica1.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o
+OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o
 # orden que sera ejecutada por defecto
 #
 default : $(TARGETS)
@@ -39,8 +39,8 @@ default : $(TARGETS)
 #
 $(TARGETS) : $(OBJECTS)
 
-$(OBJ)/practica1.o: $(OBJECTS)
-	$(CC) -o $(BIN)/practica1 $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(SRC)/practica1.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+$(OBJ)/practica.o: $(OBJECTS)
+	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
