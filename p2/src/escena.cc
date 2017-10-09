@@ -13,43 +13,51 @@
 #include <cstdio>
 #include <iostream>
 
-
+#include<vector>
 #include "escena.h"
-using namespace std;
+#include "file_ply_stl.h"
+#include "ObjetoPLY.h"
+
 // #include "figura.h"
 
 int transformacion=0;
 
 Escena::Escena(){
-        Front_plane=50;
+        Front_plane=5;
         Back_plane=2000;
         Observer_distance = 4*Front_plane;
         Observer_angle_x = Observer_angle_y=0;
         ejes.changeAxisSize(5000);
         gltype = 0; //Inicializacion por defecto
 
-        float lado;
-        cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
-        cin>>lado;
+        // float lado;
+        // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
+        // cin>>lado;
+        //
+        // if (lado>0){
+        //   Cubo cubo(lado); //Creamos el cubo
+        //   Tetraedro tetraedro(lado);
+        //   Piramide piramide(lado);
+        //   figuras.push_back(cubo); //Insertamos el cubo en la escena
+        //   figuras.push_back(tetraedro);
+        //   figuras.push_back(piramide);
+        // }
+        // else{
+        //   Cubo cubo;
+        //   Tetraedro tetraedro;
+        //   Piramide piramide;
+        //   figuras.push_back(cubo); //Insertamos el cubo en la escena
+        //   figuras.push_back(tetraedro);
+        //   figuras.push_back(piramide);
+        // }
 
-        if (lado>0){
-          Cubo cubo(lado); //Creamos el cubo
-          Tetraedro tetraedro(lado);
-          Piramide piramide(lado);
-          figuras.push_back(cubo); //Insertamos el cubo en la escena
-          figuras.push_back(tetraedro);
-          figuras.push_back(piramide);
-        }
-        else{
-          Cubo cubo;
-          Tetraedro tetraedro;
-          Piramide piramide;
-          figuras.push_back(cubo); //Insertamos el cubo en la escena
-          figuras.push_back(tetraedro);
-          figuras.push_back(piramide);
-        }
+        string inputFile;
+        cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
+        cin>>inputFile;
 
+        ObjetoPLY objPly("ply/"+inputFile);
 
+        figuras.push_back(objPly);
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
 }
 
@@ -72,11 +80,7 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
 //***************************************************************************
 void Escena::draw_objects() {
         // Cubo cubo;
-        if(transformacion) {
-                glRotatef(45.0,1.0,1.0,1.0);
-                figuras[figuraActual].draw(gltype,4.5);
-        }
-        figuras[figuraActual].draw(gltype,4.5);
+        figuras[figuraActual].draw(gltype,0.5);
 }
 
 
@@ -157,7 +161,7 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
 void Escena::change_projection()  {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glFrustum(-Width,Width,-Height,Height,Front_plane,Back_plane);
+        glFrustum(-figuras[figuraActual].getAnchura(),figuras[figuraActual].getAnchura(),-figuras[figuraActual].getAltura(),figuras[figuraActual].getAltura(),Front_plane,Back_plane);
 }
 
 

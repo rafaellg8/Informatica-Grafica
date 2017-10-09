@@ -16,8 +16,6 @@
 
 Escena *escena;
 
-
-
 void draw_scene(void)  {
 								if (escena!=NULL) escena->dibujar();
 								glutSwapBuffers();
@@ -74,6 +72,11 @@ void special_keys(int Tecla1,int x,int y) {
 								glutPostRedisplay();
 }
 
+double clockToMilliseconds(clock_t ticks){
+    // units/(units/time) => time (seconds) * 1000 = milliseconds
+    return (ticks/(double)CLOCKS_PER_SEC)*1000.0;
+}
+//...
 
 
 //***************************************************************************
@@ -102,7 +105,7 @@ int main(int argc, char **argv) {
 								glutInitWindowSize(UI_window_width,UI_window_height);
 
 // llamada para crear la ventana, indicando el titulo
-								glutCreateWindow("P1: Rafael Lachica Garrido");
+								glutCreateWindow("P2: Rafael Lachica Garrido");
 
 // asignación de la funcion llamada "dibujar" al evento de dibujo
 								glutDisplayFunc(draw_scene);

@@ -8,8 +8,9 @@ TARGETS= practica1
 # encontrar ficheros para incluir mediante la opcion -I
 # la opcion -g sirve para permitir la depuraci�n
 #
+
 CFLAGS=    -g -I/usr/include -I.
-CXXFLAGS=  -g -I/usr/include -I. -std=c++11
+CXXFLAGS=  -g -I/usr/include -I. -std=c++11 -O3
 
 # banderas pra el enlazador
 # Se indica directorios donde encontrar las funciontecas con -L. Usando -l seguido del
@@ -29,7 +30,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/practica1.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/read_ply.o
+OBJECTS= $(OBJ)/practica1.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o
 # orden que sera ejecutada por defecto
 #
 default : $(TARGETS)
@@ -39,7 +40,7 @@ default : $(TARGETS)
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica1.o: $(OBJECTS)
-	$(CC) $(SRC)/practica1.cc $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/escena.o -o $(BIN)/practica1  $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) -o $(BIN)/practica1 $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(SRC)/practica1.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
@@ -65,6 +66,8 @@ $(OBJ)/read_ply.o:
 $(OBJ)/file_ply_stl.o:
 	$(CC) $(CXXFLAGS) -c $(SRC)/file_ply_stl.cc  -o $(OBJ)/file_ply_stl.o -I $(INC)
 
+$(OBJ)/ObjetoPLY.o:
+	$(CC) $(CXXFLAGS) -c $(SRC)/ObjetoPLY.cc  -o $(OBJ)/ObjetoPLY.o -I $(INC)
 #
 #
 clean:

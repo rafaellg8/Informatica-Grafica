@@ -12,12 +12,16 @@ class Figura {
 private:
   std::vector<_vertex3f> vertices;
   std::vector<_vertex3i> caras;
+  std::vector<_vertex3i> normales;
   std::vector<float> tablaVertices;//Correspondencia vertices y caras
   std::vector<int> tablaCaras;//Correspondencia vertices y caras
   std::vector<float> colores; //Color para cada vertice
+  std::vector<int> tablaNormales;
   int n_vertices;
   int n_caras;
   int tamanioTabla;
+  float anchuraFigura;
+  float alturaFigura;
 
 protected:
   /**
@@ -61,6 +65,15 @@ public:
   Tabla de Triangulos, con las caras
   */
   void creaTabla();
+
+  /**
+  Función que recorre la figura y muestra los extremos máximos, altura y anchura de la figura.
+  */
+  void extremosFigura();
+
+  float getAltura();
+
+  float getAnchura();
 };
 
 #endif

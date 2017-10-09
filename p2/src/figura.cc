@@ -2,10 +2,12 @@
 
 Figura::Figura(){
         n_vertices = n_caras = 0;
+        anchuraFigura = alturaFigura = 0;
 }
 
 Figura::Figura(vector<_vertex3f> v, vector<_vertex3i> c){
         insertarDatos(v,c);
+
 }
 
 void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
@@ -20,8 +22,8 @@ void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
                 colores.push_back(0.9); //G
                 colores.push_back(0.5); //B
         }
-
         creaTabla();
+        extremosFigura();
 }
 
 vector<_vertex3f>Figura::getVertices(){
@@ -40,6 +42,27 @@ int Figura::getVerticesSize(){
 int Figura::getCarasSize(){
         return n_caras;
 }
+
+float Figura::getAltura(){
+        return alturaFigura;
+}
+
+float Figura::getAnchura(){
+        return anchuraFigura;
+}
+
+void Figura::extremosFigura(){
+        anchuraFigura = vertices[0].x;
+        alturaFigura = vertices[0].y;
+
+        for (int i=0; i<vertices.size(); i++) {
+                if (vertices[i].x >= anchuraFigura)
+                        anchuraFigura = vertices[i].x;
+                if (vertices[i].y >= alturaFigura)
+                        alturaFigura = vertices[i].y;
+        }
+}
+
 
 void Figura::draw(int tipo, float tamanioPunto){
 
