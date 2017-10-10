@@ -4,6 +4,7 @@
 Figura::Figura(){
         n_vertices = n_caras = 0;
         anchoMax = altoMax = 0;
+        cout<<"\nNormales size "<<normales.size();
 }
 
 Figura::Figura(vector<_vertex3f> v, vector<_vertex3i> c){
@@ -83,11 +84,12 @@ vector<_vertex3f> Figura::productoVectorial(vector<_vertex3f>P, vector<_vertex3f
 // Nz = Px*Qy - Py*Qx
   float x,y,z = 0.0;
 
-  x = P.back().y*Q.back().z - P.back().z*Q.back().y;
-  y = P.back().z*Q.back().x - P.back().x*Q.back().z;
-  z = P.back().x*Q.back().y - P.back().y*Q.back().x;
+  x = (P.back().y*Q.back().z) - (P.back().z*Q.back().y);
+  y = (P.back().z*Q.back().x) - (P.back().x*Q.back().z);
+  z = (P.back().x*Q.back().y) - (P.back().y*Q.back().x);
 
   vector<_vertex3f>N;
+
   N.push_back({x,y,z});
 
   return N;
@@ -100,28 +102,35 @@ void Figura::calcularNormales(){
 
   vector<_vertex3f> vectorP,vectorQ;
 
-  for (int i=0;i<caras.size();i+=3){
-    float x = vertices[i+1].x - vertices[i].x;
-    float y = vertices[i+1].y - vertices[i].y;
-    float z = vertices[i+1].z - vertices[i].z;
+  for (int i=0;i<caras.size();i++){
+    float x = vertices[caras[i][1]].x - vertices[caras[i][0]].x;
+    float y = vertices[caras[i][1]].y - vertices[caras[i][0]].y;
+    float z = vertices[caras[i][1]].z - vertices[caras[i][0]].z;
 
     //añadimos las coordenadas de P
     vectorP.push_back({x,y,z});
 
-    x = vertices[i+2].x - vertices[i].x;
-    y = vertices[i+2].y - vertices[i].y;
-    z = vertices[i+2].z - vertices[i].z;
+    x = vertices[caras[i][2]].x - vertices[caras[i][0]].x;
+    y = vertices[caras[i][2]].y - vertices[caras[i][0]].y;
+    z = vertices[caras[i][2]].z - vertices[caras[i][0]].z;
 
     vectorQ.push_back({x,y,z});
 
     vector<_vertex3f> N = productoVectorial(vectorP,vectorQ);
 
     //Calculamos el módulo
-    float modulo = sqrt(N.back().x*N.back().x + N.back().y*N.back().y + N.back().z*N.back().z);
+    float modulo = sqrt((N.back().x*N.back().x) + (N.back().y*N.back().y) + (N.back().z*N.back().z));
 
     //Normalizamos Nx/modulo, Ny/modulo, Nz/modulo
     normales.push_back({N.back().x/modulo,N.back().y/modulo,N.back().z/modulo});
-    normales.push_back({(N.back().x/modulo)+10,(N.back().y/modulo)+10,(N.back().z/modulo)+10});
+
+    //Punto central de la cara
+   float puntoX = (vertices[caras[i][0]].x + vertices[caras[i][1]].x + vertices[caras[i][2]].x)/3;
+   float puntoY = (vertices[caras[i][0]].y + vertices[caras[i][1]].y + vertices[caras[i][2]].y)/3;
+   float puntoZ = (vertices[caras[i][0]].z + vertices[caras[i][1]].z + vertices[caras[i][2]].z)/3;
+
+   //Metemos punto central en el vector
+   centroCaras.push_back({puntoX,puntoY,puntoZ});
   }
 
   for (int i=0;i<normales.size();i++)
@@ -160,17 +169,22 @@ void Figura::draw(int tipo, float tamanioPunto){
 }
 
 void Figura::tipoNormales(){
-  calcularNormales();
-  creaTabla();
-  puntos();
-  glColor3f(1.5,0.0,0.0);
-  glBegin(GL_LINES);
-  glPointSize(3.5);
-  for (int i=0;i<normales.size();i+=2){
-    glVertex3f(normales[i].x,normales[i].y,normales[i].z);
-    glVertex3f(normales[i+1].x,normales[i+1].y,normales[i+1].z);
+  if (normales.size()<=0) //Para evitar recalcular cada vez que se pinta
+    calcularNormales();
+
+    glPointSize(5);
+    glLineWidth(1.5);
+    glColor3f(0,0,1);
+    lineas();
+    glBegin(GL_LINES);
+    for(int i = 0; i<normales.size(); i++){
+        glVertex3f(centroCaras[i].x,centroCaras[i].y,centroCaras[i].z);
+        glVertex3f((centroCaras[i].x+normales[i].x), //Sumamos los vertices con las normales
+                    (centroCaras[i].y+normales[i].y),
+                    (centroCaras[i].z+normales[i].z));
+    }
     glEnd();
-  }
+
 }
 
 void Figura::solido(){
