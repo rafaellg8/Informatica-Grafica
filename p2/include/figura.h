@@ -10,8 +10,6 @@
 
 class Figura {
 private:
-std::vector<_vertex3f> vertices;
-std::vector<_vertex3i> caras;
 std::vector<_vertex3f> normales;
 std::vector<_vertex3f> centroCaras; //Centro de cada cara
 std::vector<float> tablaVertices;  //Correspondencia vertices y caras
@@ -27,12 +25,6 @@ float altoMax;
 float anchoMin;
 float altoMin;
 
-
-  /**
-  Tabla de Triangulos, con las caras. Tabla de normales
-  */
-  void creaTabla();
-
   /**
   Función que recorre la figura y muestra los extremos máximos, altura y anchura de la figura.
   */
@@ -41,6 +33,8 @@ float altoMin;
   vector<_vertex3f> productoVectorial(vector<_vertex3f> vectorP, vector<_vertex3f> vectorQ);
 
 protected:
+std::vector<_vertex3f> vertices;
+std::vector<_vertex3i> caras;
 /**
    Funcion para insertar los vertices y caras
  */
@@ -60,9 +54,18 @@ Figura(std::vector<_vertex3f> v, std::vector<_vertex3i> c);
 vector<_vertex3f> getVertices();
 
 /**
+Añadir vertices
+*/
+void setVertices(vector<_vertex3f> vertices);
+/**
    Devuelve el vector de caras
  */
 vector<_vertex3i> getCaras();
+
+/**
+Añadir caras
+*/
+void setCaras(vector<_vertex3i> caras);
 
 int getVerticesSize();
 
@@ -89,6 +92,12 @@ float getAltoMin();
 float getAnchoMin();
 
 void calcularNormales();
+
+/**
+Tabla de Triangulos, con las caras. Tabla de normales
+*/
+void creaTabla();
+
 };
 
 #endif

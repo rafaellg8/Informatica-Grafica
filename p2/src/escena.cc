@@ -13,10 +13,11 @@
 #include <cstdio>
 #include <iostream>
 
-#include<vector>
+#include <vector>
 #include "escena.h"
 #include "file_ply_stl.h"
 #include "ObjetoPLY.h"
+#include "Perfil.h"
 
 // #include "figura.h"
 
@@ -31,34 +32,38 @@ Escena::Escena(){
         gltype = 0; //Inicializacion por defecto
 
         float lado;
-        cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
-        cin>>lado;
+        // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
+        // cin>>lado;
 
-        if (lado>0){
-          Cubo cubo(lado); //Creamos el cubo
-          Tetraedro tetraedro(lado);
-          Piramide piramide(lado);
-          figuras.push_back(cubo); //Insertamos el cubo en la escena
-          figuras.push_back(tetraedro);
-          figuras.push_back(piramide);
+        if (lado>0) {
+                Cubo cubo(lado); //Creamos el cubo
+                Tetraedro tetraedro(lado);
+                Piramide piramide(lado);
+                figuras.push_back(cubo); //Insertamos el cubo en la escena
+                figuras.push_back(tetraedro);
+                figuras.push_back(piramide);
         }
         else{
-          Cubo cubo;
-          Tetraedro tetraedro;
-          Piramide piramide;
-          figuras.push_back(cubo); //Insertamos el cubo en la escena
-          figuras.push_back(tetraedro);
-          figuras.push_back(piramide);
+                Cubo cubo;
+                Tetraedro tetraedro;
+                Piramide piramide;
+                figuras.push_back(cubo); //Insertamos el cubo en la escena
+                figuras.push_back(tetraedro);
+                figuras.push_back(piramide);
         }
 
         string inputFile;
-        cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
-        cin>>inputFile;
+        // cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
+        // cin>>inputFile;
 
-        ObjetoPLY objPly("ply/"+inputFile);
+        ObjetoPLY objPly("ply/perfil.ply");
 
-        figuras.push_back(objPly);
+        Perfil perfil(objPly.getVertices(),360.0,4);
+
+        figuras.push_back(perfil);
+
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
+
 }
 
 void Escena::inicializar(int UI_window_width,int UI_window_height) {
@@ -137,11 +142,11 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 return 0;
                 break;
 
-                case '4':
-                        figuraActual = 3;
-                        change_projection();
-                        return 0;
-                        break;
+        case '4':
+                figuraActual = 3;
+                change_projection();
+                return 0;
+                break;
 
         case 'Z':
                 if (!transformacion)

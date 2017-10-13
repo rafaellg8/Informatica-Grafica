@@ -63,7 +63,7 @@ void _file_ply::read(vector<_vertex3f> &Vertices,vector<_vertex3i> &Triangles)
   istringstream Line_stream;
 
   setlocale(LC_ALL, "C");
-
+    
   get_new_line(File,Line_stream);
   get_token(Line_stream,Token);
   if(Token=="ply"){
