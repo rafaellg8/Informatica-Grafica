@@ -35,22 +35,22 @@ Escena::Escena(){
         // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
         // cin>>lado;
 
-        if (lado>0) {
-                Cubo cubo(lado); //Creamos el cubo
-                Tetraedro tetraedro(lado);
-                Piramide piramide(lado);
-                figuras.push_back(cubo); //Insertamos el cubo en la escena
-                figuras.push_back(tetraedro);
-                figuras.push_back(piramide);
-        }
-        else{
-                Cubo cubo;
-                Tetraedro tetraedro;
-                Piramide piramide;
-                figuras.push_back(cubo); //Insertamos el cubo en la escena
-                figuras.push_back(tetraedro);
-                figuras.push_back(piramide);
-        }
+        // if (lado>0) {
+        //         Cubo cubo(lado); //Creamos el cubo
+        //         Tetraedro tetraedro(lado);
+        //         Piramide piramide(lado);
+        //         figuras.push_back(cubo); //Insertamos el cubo en la escena
+        //         figuras.push_back(tetraedro);
+        //         figuras.push_back(piramide);
+        // }
+        // else{
+        //         Cubo cubo;
+        //         Tetraedro tetraedro;
+        //         Piramide piramide;
+        //         figuras.push_back(cubo); //Insertamos el cubo en la escena
+        //         figuras.push_back(tetraedro);
+        //         figuras.push_back(piramide);
+        // }
 
         string inputFile;
         // cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
@@ -60,6 +60,7 @@ Escena::Escena(){
 
         Perfil perfil(objPly.getVertices(),360.0,4);
 
+        figuras.push_back(objPly);
         figuras.push_back(perfil);
 
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
@@ -85,7 +86,7 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
 //***************************************************************************
 void Escena::draw_objects() {
         // Cubo cubo;
-        figuras[figuraActual].draw(gltype,0.5);
+        figuras[figuraActual].draw(gltype,4.5);
 }
 
 

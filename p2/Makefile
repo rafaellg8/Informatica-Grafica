@@ -76,7 +76,7 @@ $(OBJ)/file_ply_stl.o:
 $(OBJ)/ObjetoPLY.o:
 	$(CC) $(CXXFLAGS) -c $(SRC)/ObjetoPLY.cc  -o $(OBJ)/ObjetoPLY.o -I $(INC)
 
-$(OBJ)/Perfil.o:
+$(OBJ)/Perfil.o: $(SRC)/Perfil.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/Perfil.cc  -o $(OBJ)/Perfil.o -I $(INC)
 #
 #

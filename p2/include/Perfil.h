@@ -18,6 +18,10 @@ private:
 
   bool calculaRotaciones();
   float radToGrados(double angulo);
+  void revolucionar();
+  void generaCaras();
+  void generaTapas();
+  void generaPuntosTapas();
 public:
   Perfil();
   Perfil(vector<_vertex3f> perfil);
@@ -29,8 +33,6 @@ public:
   void setGrados(float grados);
   int getDivisiones();
   void setDivisiones(int nDivisiones);
-  void revolucionar();
-  void generaCaras();
 };
 
 #endif

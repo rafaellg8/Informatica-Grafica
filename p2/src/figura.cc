@@ -269,7 +269,6 @@ void Figura::creaTabla(){
         }
         tamanioTabla = tablaCaras.size();
 
-
         for (int i=0; i<normales.size(); i++) {
                 tablaNormales.push_back(normales[i].x);
                 tablaNormales.push_back(normales[i].y);

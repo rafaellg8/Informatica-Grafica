@@ -30,7 +30,7 @@ void Perfil::revolucionar(){
                 for (int i=0; i<nDivisiones; i++) {
                         for(int j=0; j<perfil.size(); j++) { //vamos recorriendo el perfil
                                 x=(fabs(perfil[j].x)*cos(radToGrados(gradosRotacion*i)));
-                                y=perfil[j].y;
+                                y=static_cast<float>(perfil[j].y);
                                 z=(fabs(perfil[j].x)*sin(radToGrados(gradosRotacion*i)));
 
                                 if (z<0.0)
@@ -49,22 +49,84 @@ void Perfil::revolucionar(){
 
 void Perfil::generaCaras(){
   int n;
-	if (grados==360){ //Controlamos que pueda pintar solo una parte de la figura ej: 3/4 bien pintados
+	if (grados==360){
 		n=vertices.size();
 	}
-	else{
+	else{ //Si solo queremos revolucionar la mitad de la figuras, 180 grados
 	n = nDivisiones*perfil.size(); //Recorremos, numero de divisiones * puntos del perfil
 	}
-  cout<<"n "<<n<<endl;
+
 	for (int i=0;i<n;i++){
 			if ((i+1)%perfil.size()!=0){ //Comprobamos que no se salga de las tapas de arriba
 			//Asignar en triangulos las caras
 			caras.push_back({(i),(i+1), static_cast<int>((i+perfil.size())%vertices.size())}); //Cara A del cuadrado AB
-      cout<<"\nAniadiendo "<<caras.back().x<<" "<<caras.back().y<<" "<<caras.back().z<<endl;
+
 			caras.push_back({(i+1), static_cast<int>((i+1+perfil.size())%vertices.size()), static_cast<int>((i+perfil.size())%vertices.size())});
-      cout<<"\nAniadiendo "<<caras.back().x<<" "<<caras.back().y<<" "<<caras.back().z<<endl;
+
 		}
 	}
+}
+
+void Perfil::generaPuntosTapas(){
+  _vertex3f t; // Punto donde está la tapa abajo
+  _vertex3f T; //Punto donde está la tapa de arriba
+
+t = vertices[0]; //Almacenamos los puntos
+T = vertices[perfil.size()-1];
+
+//Dejamos solo los puntos sobre el eje Y
+t.x = 0.0; t.z=0.0;
+T.x = 0.0; T.z=0.0;T.y=(vertices[perfil.size()-1].y+0.10); //Subimos un poco para redondear la punta
+
+
+  vertices.push_back(t); //Penúltima posicion del vector, t
+  vertices.push_back(T); //Ultima posicion del T
+}
+
+void Perfil::generaTapas(){
+  /************************
+	Tapa Abajo
+	*************************/
+	// for (int i=0;i<nDivisiones;i++){
+	// 	caras.push_back(i*perfil.size());
+	// 	caras.push_back(vertices.size()-1);
+	// 	caras.push_back(((i+1))*perfil.size());
+	// }
+  //
+	// //Ultima cara
+	// if (grados==360){ caras.push_back(nDivisiones* perfil.size());
+	//  caras.push_back(vertices.size()-2);
+	//  caras.push_back(0);}
+  for (int i=0;i<nDivisiones;i++){
+    caras.push_back({static_cast<int>(i*perfil.size()),static_cast<int>(vertices.size()-2),static_cast<int>((i+1)*perfil.size())}); //vertices final -2 posiciones, punto t
+  }
+
+  //Ultima cara
+  caras.push_back({static_cast<int>(nDivisiones*perfil.size()),static_cast<int>(vertices.size()-2),static_cast<int>(0)});
+
+	 /***********************
+	 Tapa Arriba
+	 ************************/
+
+	//  for (int i=perfil.size()-1;i<perfil.size()*(nDivisiones);i+=perfil.size()){
+	//  	caras.push_back(i);
+	//  	caras.push_back((i+perfil.size()));
+	//  	caras.push_back(vertices.size()-1);
+	//  }
+  //
+	//  //Ultima cara
+	//  if (grados==360){
+	//  caras.push_back(vertices.size()-3);
+	//  caras.push_back(perfil.size()-1);
+	//  caras.push_back(vertices.size()-1);
+	// }
+  for (int i=1;i<=nDivisiones;i++){
+    caras.push_back({static_cast<int>(i*perfil.size()-1),static_cast<int>((i+1)*perfil.size()-1),static_cast<int>(vertices.size()-1)}); //vertices final -2 posiciones, punto t
+  }
+  // Ultima cara
+  caras.push_back({static_cast<int>(vertices.size()-3),static_cast<int>(perfil.size()-1),static_cast<int>(vertices.size()-1)});
+
+  insertarDatos(vertices,caras);
 }
 
 Perfil::Perfil(vector<_vertex3f>perfil,float grados,int nDivisiones){
@@ -72,15 +134,22 @@ Perfil::Perfil(vector<_vertex3f>perfil,float grados,int nDivisiones){
         this->grados = grados;
         this->nDivisiones = nDivisiones;
         vertices = perfil;
-        cout<<"\nPerfil: caras  vertices"<<caras.size()<<" "<<vertices.size()<<endl;
+
         // setVertices(perfil);
         calculaRotaciones();
-        cout<<"\nNum diviones "<<nDivisiones<< " "<<grados<<" "<<gradosRotacion<<endl;
-        cout<<"\nPerfil: "<<caras.size()<<" "<<vertices.size()<<" perfil "<<perfil.size()<<endl;
         revolucionar();
+
+        // insertarDatos(vertices,caras);
+
+        //generaTapas();
+
         generaCaras();
-        cout<<"\nPerfil: "<<caras.size()<<" "<<vertices.size()<<endl;
-        creaTabla();
+
+        generaPuntosTapas();
+
+        generaTapas();
+        insertarDatos(vertices,caras); //Aniadimos los vertices y las caras a la clase superior
+
 }
 
 vector<_vertex3f> Perfil::getPerfil(){
