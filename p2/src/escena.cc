@@ -58,7 +58,7 @@ Escena::Escena(){
 
         ObjetoPLY objPly("ply/perfil.ply");
 
-        Perfil perfil(objPly.getVertices(),360.0,4);
+        Perfil perfil(objPly.getVertices(),360.0,18);
 
         figuras.push_back(objPly);
         figuras.push_back(perfil);

@@ -125,8 +125,6 @@ void Perfil::generaTapas(){
   }
   // Ultima cara
   caras.push_back({static_cast<int>(vertices.size()-3),static_cast<int>(perfil.size()-1),static_cast<int>(vertices.size()-1)});
-
-  insertarDatos(vertices,caras);
 }
 
 Perfil::Perfil(vector<_vertex3f>perfil,float grados,int nDivisiones){
