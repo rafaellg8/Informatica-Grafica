@@ -7,7 +7,6 @@
 #include <GLUT/glut.h>
 #else
 #include <GL/gl.h>
-#include <GL.glut.h>
 #endif
 
 #include <cstdio>
@@ -32,31 +31,31 @@ Escena::Escena(){
         gltype = 0; //Inicializacion por defecto
 
         float lado;
-        // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
-        // cin>>lado;
+        cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
+        cin>>lado;
 
-        // if (lado>0) {
-        //         Cubo cubo(lado); //Creamos el cubo
-        //         Tetraedro tetraedro(lado);
-        //         Piramide piramide(lado);
-        //         figuras.push_back(cubo); //Insertamos el cubo en la escena
-        //         figuras.push_back(tetraedro);
-        //         figuras.push_back(piramide);
-        // }
-        // else{
-        //         Cubo cubo;
-        //         Tetraedro tetraedro;
-        //         Piramide piramide;
-        //         figuras.push_back(cubo); //Insertamos el cubo en la escena
-        //         figuras.push_back(tetraedro);
-        //         figuras.push_back(piramide);
-        // }
+        if (lado>0) {
+                Cubo cubo(lado); //Creamos el cubo
+                Tetraedro tetraedro(lado);
+                Piramide piramide(lado);
+                figuras.push_back(cubo); //Insertamos el cubo en la escena
+                figuras.push_back(tetraedro);
+                figuras.push_back(piramide);
+        }
+        else{
+                Cubo cubo;
+                Tetraedro tetraedro;
+                Piramide piramide;
+                figuras.push_back(cubo); //Insertamos el cubo en la escena
+                figuras.push_back(tetraedro);
+                figuras.push_back(piramide);
+        }
 
         string inputFile;
-        // cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
-        // cin>>inputFile;
+        cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
+        cin>>inputFile;
 
-        ObjetoPLY objPly("ply/perfil.ply");
+        ObjetoPLY objPly("ply/"+inputFile);
 
         Perfil perfil(objPly.getVertices(),360.0,4);
 
@@ -148,6 +147,13 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 change_projection();
                 return 0;
                 break;
+
+                case '5':
+                        figuraActual = 4;
+                        change_projection();
+                        return 0;
+                        break;
+
 
         case 'Z':
                 if (!transformacion)
