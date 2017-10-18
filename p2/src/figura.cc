@@ -86,6 +86,23 @@ void Figura::extremosFigura(){
         }
 }
 
+bool Figura::tieneTapas(){
+  _vertex3f tapaSuperior = vertices[0];
+  _vertex3f tapaInferior = vertices[0];
+
+  for (int i=0; i<vertices.size(); i++) {
+        if (vertices[i].y > tapaSuperior.y)
+          tapaSuperior = vertices[i];
+
+        if (vertices[i].y<tapaInferior.y)
+          tapaInferior = vertices[i];
+  }
+
+  if (tapaInferior.x==0.0 && tapaInferior.z==0.0)
+    return true;
+  else return false;
+}
+
 vector<_vertex3f> Figura::productoVectorial(vector<_vertex3f>P, vector<_vertex3f> Q){
 // Nx = Py*Qz - Pz*Qy
 // Ny = Pz*Qx - Px*Qz

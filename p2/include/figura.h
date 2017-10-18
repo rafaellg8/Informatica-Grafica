@@ -93,6 +93,8 @@ float getAnchoMin();
 
 void calcularNormales();
 
+bool tieneTapas(); //Comprueba que tenga alguna tapa
+
 /**
 Tabla de Triangulos, con las caras. Tabla de normales
 */

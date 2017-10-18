@@ -56,11 +56,15 @@ Escena::Escena(){
         cin>>inputFile;
 
         ObjetoPLY objPly("ply/"+inputFile);
+        figuras.push_back(objPly); //SI tiene tapas no revolucionamos
 
-        Perfil perfil(objPly.getVertices(),360.0,18);
+        objPly = ObjetoPLY("ply/perfil.ply");
 
-        figuras.push_back(objPly);
-        figuras.push_back(perfil);
+        if (objPly.tieneTapas()==false) {
+                cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
+                Perfil perfil(objPly.getVertices(),360.0,18);
+                figuras.push_back(perfil);
+        }
 
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
 
@@ -148,11 +152,11 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 return 0;
                 break;
 
-                case '5':
-                        figuraActual = 4;
-                        change_projection();
-                        return 0;
-                        break;
+        case '5':
+                figuraActual = 4;
+                change_projection();
+                return 0;
+                break;
 
 
         case 'Z':
