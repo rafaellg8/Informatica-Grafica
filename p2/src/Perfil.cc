@@ -108,7 +108,7 @@ void Perfil::generaCaras(){
                         carasCuerpo.push_back(caras.back());
 
                         caras.push_back({(i+1), static_cast<int>((i+1+perfil.size())%vertices.size()),
-                          static_cast<int>((i+perfil.size())%vertices.size())});
+                                         static_cast<int>((i+perfil.size())%vertices.size())});
 
                         carasCuerpo.push_back(caras.back());
 
@@ -175,7 +175,7 @@ void Perfil::generaTapaF(){
         /************************
            Tapa Abajo
          *************************/
-         carasTapaF.clear();
+        carasTapaF.clear();
         for (int i=0; i<nDivisiones; i++) {
                 caras.push_back({static_cast<int>(i*perfil.size()),static_cast<int>(vertices.size()-2),static_cast<int>((i+1)*perfil.size())}); //vertices final -2 posiciones, punto t
                 carasTapaF.push_back(caras.back());
@@ -190,13 +190,13 @@ void Perfil::generaTapaF(){
 void Perfil::pinta(bool tapaArriba, bool tapaFondo, bool cuerpo){
         caras.clear();
         if (cuerpo)
-          caras.insert(caras.end(),carasCuerpo.begin(),carasCuerpo.end());
+                caras.insert(caras.end(),carasCuerpo.begin(),carasCuerpo.end());
 
         if (tapaFondo)
-          caras.insert(caras.end(),carasTapaF.begin(),carasTapaF.end());
+                caras.insert(caras.end(),carasTapaF.begin(),carasTapaF.end());
 
         if (tapaArriba)
-          caras.insert(caras.end(),carasTapaA.begin(),carasTapaA.end());
+                caras.insert(caras.end(),carasTapaA.begin(),carasTapaA.end());
 
         insertarDatos(vertices,caras);
 

@@ -87,20 +87,20 @@ void Figura::extremosFigura(){
 }
 
 bool Figura::tieneTapas(){
-  _vertex3f tapaSuperior = vertices[0];
-  _vertex3f tapaInferior = vertices[0];
+        _vertex3f tapaSuperior = vertices[0];
+        _vertex3f tapaInferior = vertices[0];
 
-  for (int i=0; i<vertices.size(); i++) {
-        if (vertices[i].y > tapaSuperior.y)
-          tapaSuperior = vertices[i];
+        for (int i=0; i<vertices.size(); i++) {
+                if (vertices[i].y > tapaSuperior.y)
+                        tapaSuperior = vertices[i];
 
-        if (vertices[i].y<tapaInferior.y)
-          tapaInferior = vertices[i];
-  }
+                if (vertices[i].y<tapaInferior.y)
+                        tapaInferior = vertices[i];
+        }
 
-  if (tapaInferior.x==0.0 && tapaInferior.z==0.0)
-    return true;
-  else return false;
+        if (tapaInferior.x==0.0 && tapaInferior.z==0.0)
+                return true;
+        else return false;
 }
 
 vector<_vertex3f> Figura::productoVectorial(vector<_vertex3f>P, vector<_vertex3f> Q){
@@ -271,15 +271,17 @@ void Figura::ajedrez(){
 
 
 void Figura::creaTabla(){
-        if (vertices.size()>0)
-                for (int i=0; i<n_vertices; i++) {
-                        tablaVertices.push_back(vertices[i].x);
-                        tablaVertices.push_back(vertices[i].y);
-                        tablaVertices.push_back(vertices[i].z);
-                }
-
-        n_caras = caras.size();
+        tablaVertices.clear(); //Si se vuelve a llamar, la tabla se destruye y se vuelve a construir
         tablaCaras.clear();
+        tablaNormales.clear();
+
+        for (int i=0; i<n_vertices; i++) {
+                tablaVertices.push_back(vertices[i].x);
+                tablaVertices.push_back(vertices[i].y);
+                tablaVertices.push_back(vertices[i].z);
+        }
+
+
         for (int i=0; i<n_caras; i++) {
                 tablaCaras.push_back(caras[i].x); //Vamos asignando cada 3 caras los 3 caras, tenemos una tabla de caras repetidos con las caras
                 tablaCaras.push_back(caras[i].y);
