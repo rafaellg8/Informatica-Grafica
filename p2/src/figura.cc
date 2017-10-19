@@ -279,6 +279,7 @@ void Figura::creaTabla(){
                 }
 
         n_caras = caras.size();
+        tablaCaras.clear();
         for (int i=0; i<n_caras; i++) {
                 tablaCaras.push_back(caras[i].x); //Vamos asignando cada 3 caras los 3 caras, tenemos una tabla de caras repetidos con las caras
                 tablaCaras.push_back(caras[i].y);

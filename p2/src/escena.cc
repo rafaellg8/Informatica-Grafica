@@ -22,6 +22,8 @@
 
 int transformacion=0;
 
+Perfil perfil;
+
 Escena::Escena(){
         Front_plane=20;
         Back_plane=2000;
@@ -62,7 +64,7 @@ Escena::Escena(){
 
         if (objPly.tieneTapas()==false) {
                 cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
-                Perfil perfil(objPly.getVertices(),360.0,18);
+                perfil=Perfil(objPly.getVertices(),360.0,18);
                 figuras.push_back(perfil);
         }
 
@@ -154,10 +156,32 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
 
         case '5':
                 figuraActual = 4;
+                perfil.pinta(true,true,true);
+                figuras[4]=perfil;
                 change_projection();
                 return 0;
                 break;
-
+        case '6': //Pintar solo el cuerpo
+                figuraActual = 4;
+                perfil.pinta(false,false,true);
+                figuras[4]=perfil;
+                change_projection();
+                return 0;
+                break;
+        case '7':         //Pintar todo menos la tapa de abajo
+                figuraActual = 4;
+                perfil.pinta(true,false,true);
+                figuras[4]=perfil;
+                change_projection();
+                return 0;
+                break;
+        case '8':                 //Pintar todo menos la parte de arriba
+                figuraActual = 4;
+                perfil.pinta(false,true,true);
+                figuras[4]=perfil;
+                change_projection();
+                return 0;
+                break;
 
         case 'Z':
                 if (!transformacion)
