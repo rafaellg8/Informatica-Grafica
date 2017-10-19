@@ -196,18 +196,18 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 return 0;
                 break;
 
-                case '0':                         //Pintar todo menos la parte de arriba
-                        cout<<"\nRevolucion por parametros. Introduzca grados espacio Divisiones y pulse enter"<<endl;
-                        float gr; //grados
-                        int divi; //Divisiones
-                        cin>>gr;
-                        cin>>divi;
-                        figuraActual = 4;
-                        perfil = Perfil(perfil.getPerfil(),gr,divi);
-                        figuras[4]=perfil;
-                        change_projection();
-                        return 0;
-                        break;
+        case '0':                                 //Pintar todo menos la parte de arriba
+                cout<<"\nRevolucion por parametros. Introduzca grados espacio Divisiones y pulse enter"<<endl;
+                float gr;         //grados
+                int divi;         //Divisiones
+                cin>>gr;
+                cin>>divi;
+                figuraActual = 4;
+                perfil = Perfil(perfil.getPerfil(),gr,divi);
+                figuras[4]=perfil;
+                change_projection();
+                return 0;
+                break;
 
         case 'Z':
                 if (!transformacion)

@@ -28,4 +28,38 @@ He usado como forma de guardar los vértices y caras la clase vertex. Pensando e
 Para poder pintarlo usando GlDrawElements, he creado 2 vectores auxiliares, tablaVertices y tablaCaras, más simples, que a la hora
 de crear los objetos en el constructor y una vez introducidos los datos, se inicializan estas tablas con los datos que ya tenemos.
 
+==
 
+Practica 2
+
+Clases:
+
+- ObjetoPLY
+
+- Perfil: clase con la que haremos las revoluciones
+
+Mi clase Perfil, está peparada tanto para construir objetos a partir de un ply, o a partir de parámetros. Por comodidad de no tener
+que construir un vector de vertices y pasarlo,leo un
+ply y le paso por parametros vertices,grados,divisiones. También se le puede pasar el archivo ply, grados y el número de divisiones.
+
+Teclas:
+
+- 1: cubo
+
+- 2: tetraedro
+
+- 3: piramide
+
+- 4: ply
+
+- 5: objeto por revolucion
+
+- 6: objeto por revolucion sin tapas
+
+- 7: objeto por revolucion sin tapa de arriba
+
+- 8: objeto por revolucion sin tapa de abajo
+
+- 9: solo revolucionamos y pintamos las tapas
+
+- 0: objeto por revolcion dinámico en tiempo de ejecucion. Hay que pasarle el numero de grados y numero de divisiones  a revolucionar.
