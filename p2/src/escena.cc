@@ -25,7 +25,7 @@ int transformacion=0;
 Perfil perfil;
 
 Escena::Escena(){
-        Front_plane=20;
+        Front_plane=200;
         Back_plane=2000;
         Observer_distance = 4*Front_plane;
         Observer_angle_x = Observer_angle_y=0;
@@ -54,7 +54,7 @@ Escena::Escena(){
         }
 
         string inputFile;
-        cout<<"\nIntroduzca el nombre del fichero ply"<<endl;
+        cout<<"\nIntroduzca el nombre del fichero ply, sin direccion absoluta. Ej: cow.ply"<<endl;
         cin>>inputFile;
 
         ObjetoPLY objPly("ply/"+inputFile);
@@ -64,14 +64,16 @@ Escena::Escena(){
 
         if (objPly.tieneTapas()==false) {
                 cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
-                perfil=Perfil(objPly.getVertices(),360.0,18);
+                // perfil=Perfil(objPly.getVertices(),360.0,18);
+                perfil = Perfil("ply/perfil.ply");
                 figuras.push_back(perfil);
         }
 
         vector<_vertex3f> trayectoria;
+        //Trayectoria para el objeto por barrido
         trayectoria= {{0,-50,0},{25,-25,0},{25,25,0},{0,50,0},{-25,25,0},{-25,-25,0}};
 
-        Perfil barrido(trayectoria,100.5);
+        Perfil barrido(trayectoria,100.5); //Trayectoria, distancia de barrido
 
         figuras[0]=barrido;
 
@@ -204,13 +206,11 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 break;
 
         case '0':                                 //Pintar todo menos la parte de arriba
-                cout<<"\nRevolucion por parametros. Introduzca grados espacio Divisiones y pulse enter"<<endl;
-                float gr;         //grados
+                cout<<"\nRevolucion por parametros. Introduzca numero divisiones y pulse enter"<<endl;
                 int divi;         //Divisiones
-                cin>>gr;
                 cin>>divi;
                 figuraActual = 4;
-                perfil = Perfil(perfil.getPerfil(),gr,divi);
+                perfil = Perfil(perfil.getPerfil(),360.0,divi);
                 figuras[4]=perfil;
                 change_projection();
                 return 0;

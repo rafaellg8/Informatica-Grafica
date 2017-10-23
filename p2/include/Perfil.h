@@ -24,7 +24,7 @@ private:
   vector<_vertex3i> carasTapaF;
 
   float grados;
-  int nDivisiones; //Numero de divisiones que queremos hacer, se dividen por el número de grados y obtenemos el número de rotaciones
+  int nDivisiones=18; //Numero de divisiones que queremos hacer. Defecto a 18
   int gradosRotacion;
   bool pintaA, pintaF, cuerpo = true; //Pintar las tapas y el cuerpo, por defecto a true
 

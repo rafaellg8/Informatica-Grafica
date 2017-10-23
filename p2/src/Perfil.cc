@@ -26,7 +26,7 @@ Perfil::Perfil(string plyfile){
         ObjetoPLY obj = ObjetoPLY(plyfile);
         perfil = obj.getVertices();
         grados = 360.0;
-
+        nDivisiones = 18;
         //Divisiones por defecto 25
         creaObjRevo();
         insertarDatos(vertices,caras);
