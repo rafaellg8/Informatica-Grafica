@@ -68,6 +68,13 @@ Escena::Escena(){
                 figuras.push_back(perfil);
         }
 
+        vector<_vertex3f> trayectoria;
+        trayectoria= {{0,-50,0},{25,-25,0},{25,25,0},{0,50,0},{-25,25,0},{-25,-25,0}};
+
+        Perfil barrido(trayectoria,100.5);
+
+        figuras[0]=barrido;
+
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
 
 }

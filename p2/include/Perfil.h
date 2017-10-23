@@ -9,6 +9,9 @@ Autor: Rafael Lachica Garrido
 #define _PERFIL_
 
 #include "figura.h"
+#include <cstring>
+#include "file_ply_stl.h"
+
 class Perfil : public Figura{
 private:
   vector<_vertex3f> perfil; //Coordenadas del perfil. SOlo se modifica en el Constructor
@@ -28,15 +31,19 @@ private:
   bool calculaRotaciones();
   float radToGrados(double angulo);
   void revolucionar();
+  void creaObjRevo(); //Funcion que crea el objeto completo. Revoluciona,generaCaras,tapas
   void generaCaras();
   void generaTapas();
   void generaPuntosTapas();
   void generaTapaA(); //Tapa de arriba/ Caras
   void generaTapaF(); //Genera la tapa de abajo /Caras
+  void generaCarasBarrido(); //Funcion especial para generar las caras de los vertices por barrido
 public:
   Perfil();
   Perfil(vector<_vertex3f> perfil);
   Perfil(vector<_vertex3f>perfil,float grados, int nDivisiones);
+  Perfil(string plyfile);
+  Perfil(vector<_vertex3f>trayectoria,float distancia); //Solido por barrido
 
   vector<_vertex3f> getPerfil();
   float getGrados();
@@ -44,6 +51,11 @@ public:
   int getDivisiones();
   void setDivisiones(int nDivisiones);
   void pinta(bool tapaA, bool tapaF, bool cuerpo); //Taba arriba tapa abajo y cuerpo
+
+  //Generar solido por barrido
+  void barrido(float distancia);
+
+  void tapasBarrido(float distancia);
 
   //Quitar formas de pintar
   void quitaTapaA();

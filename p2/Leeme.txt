@@ -1,35 +1,5 @@
 Rafael Lachica Garrido
 
-Modo de visualización:
-
-- Triángulos: letra T
-
-- Puntos: letra P
-
-- Líneas: letra L
-
-- Ajedrez: letra A
-
-
-Figuras:
-
-- Cubo: pulsar 1
-
-- Tetraedro: pulsar 2
-
-- Pirámide: pulsaar 3
-
-
-Notas:
-
-He creado como figura extra una pirámide.
-
-He usado como forma de guardar los vértices y caras la clase vertex. Pensando en futuras prácticas.
-Para poder pintarlo usando GlDrawElements, he creado 2 vectores auxiliares, tablaVertices y tablaCaras, más simples, que a la hora
-de crear los objetos en el constructor y una vez introducidos los datos, se inicializan estas tablas con los datos que ya tenemos.
-
-==
-
 Practica 2
 
 Clases:
@@ -42,9 +12,13 @@ Mi clase Perfil, está peparada tanto para construir objetos a partir de un ply,
 que construir un vector de vertices y pasarlo,leo un
 ply y le paso por parametros vertices,grados,divisiones. También se le puede pasar el archivo ply, grados y el número de divisiones.
 
+El sólido por barrido se construye a partir de un Perfil, ya que tal y como lo he entendido pienso que también es un perfil que hay que
+ir generando los demás puntos.
+
+
 Teclas:
 
-- 1: cubo
+- 1: Solido por barrido // Lo he sustituido por el cubo esa tecla
 
 - 2: tetraedro
 
@@ -63,3 +37,14 @@ Teclas:
 - 9: solo revolucionamos y pintamos las tapas
 
 - 0: objeto por revolcion dinámico en tiempo de ejecucion. Hay que pasarle el numero de grados y numero de divisiones  a revolucionar.
+
+
+Modo de visualización:
+
+- Triángulos: letra T
+
+- Puntos: letra P
+
+- Líneas: letra L
+
+- Ajedrez: letra A

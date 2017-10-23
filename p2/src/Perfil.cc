@@ -1,4 +1,5 @@
 #include "Perfil.h"
+#include "ObjetoPLY.h"
 #include <cstdlib>
 
 Perfil::Perfil(){
@@ -16,19 +17,30 @@ Perfil::Perfil(vector<_vertex3f>perfil,float grados,int nDivisiones){
         this->nDivisiones = nDivisiones;
         vertices = perfil;
 
-
-        calculaRotaciones();
-        revolucionar();
-
-        generaCaras();
-
-        generaPuntosTapas();
-
-        generaTapas();
+        creaObjRevo();
         insertarDatos(vertices,caras); //Aniadimos los vertices y las caras a la clase superior
 
 }
 
+Perfil::Perfil(string plyfile){
+        ObjetoPLY obj = ObjetoPLY(plyfile);
+        perfil = obj.getVertices();
+        grados = 360.0;
+
+        //Divisiones por defecto 25
+        creaObjRevo();
+        insertarDatos(vertices,caras);
+}
+
+Perfil::Perfil(vector<_vertex3f> trayectoria,float distancia){
+        perfil = trayectoria;
+        vertices = perfil;
+
+        barrido(distancia);
+        generaCarasBarrido();
+        tapasBarrido(distancia);
+        insertarDatos(vertices,caras);
+}
 
 vector<_vertex3f> Perfil::getPerfil(){
         return perfil;
@@ -66,6 +78,14 @@ bool Perfil::calculaRotaciones(){
         else return false;
 }
 
+void Perfil::creaObjRevo(){
+        calculaRotaciones();
+        revolucionar();
+        generaCaras();
+        generaPuntosTapas();
+        generaTapas();
+}
+
 void Perfil::revolucionar(){
         float x,y,z=0;
 
@@ -89,31 +109,73 @@ void Perfil::revolucionar(){
         }
 }
 
+void Perfil::barrido(float distancia){
+  /**
+   Creamos un nuevo punto, sumando el valor de la distancia a la z para crear profundidad y pasar de 2D a 3D
+  */
+  for (int i=0;i<perfil.size();i++){
+    vertices.push_back({perfil[i].x,perfil[i].y,perfil[i].z+distancia});
+  }
+}
 
 void Perfil::generaCaras(){
-        // int n;
-        // if (grados==360) {
-        //         n=vertices.size();
-        // }
-        // else{ //Si solo queremos revolucionar la mitad de la figuras, 180 grados
-        //         n = nDivisiones*perfil.size(); //Recorremos, numero de divisiones * puntos del perfil
-        // }
+
         carasCuerpo.clear();
 
-        for (int i=0; i<vertices.size(); i++) {
+        int npuntos = static_cast<int>(perfil.size());
+        int n = static_cast<int>(vertices.size());
+
+
+        for (int i=0; i<n; i++) {
                 if ((i+1)%perfil.size()!=0) { //Comprobamos que no se salga de las tapas de arriba
                         //Asignar en triangulos las caras
-                        caras.push_back({(i),(i+1), static_cast<int>((i+perfil.size())%vertices.size())}); //Cara A del cuadrado AB
 
-                        carasCuerpo.push_back(caras.back());
+                        if ((i+1)%npuntos!=0) { //Comprobamos que no se salga de las tapas de arriba
+                                //Asignar en triangulos las caras
+                                caras.push_back({(i),(i+1), static_cast<int>((i+perfil.size())%vertices.size())}); //Cara A del cuadrado AB
+                                carasCuerpo.push_back(caras.back());
 
-                        caras.push_back({(i+1), static_cast<int>((i+1+perfil.size())%vertices.size()),
-                                         static_cast<int>((i+perfil.size())%vertices.size())});
+                                caras.push_back({(i+1), static_cast<int>((i+1+perfil.size())%vertices.size()),
+                                                 static_cast<int>((i+perfil.size())%vertices.size())});
 
-                        carasCuerpo.push_back(caras.back());
+                                carasCuerpo.push_back(caras.back());
 
+                        }
                 }
         }
+}
+
+void Perfil::generaCarasBarrido(){
+  int pSize = perfil.size();
+  int n_vertices = vertices.size();
+  for (int i=0;i<pSize-1;i++){
+    caras.push_back({i,(i+pSize)%n_vertices,(i+1)%n_vertices});
+    caras.push_back({(i+1)%n_vertices,(i+pSize)%n_vertices,(i+1+pSize)%n_vertices});
+  }
+
+  //Ultima cara
+  caras.push_back({0,n_vertices-1,pSize-1});
+  caras.push_back({0,pSize,n_vertices-1});
+}
+
+void Perfil::tapasBarrido(float distancia){
+  //Generamos un punto central
+  vertices.push_back({0.0,0.0,0.0}); //Tapa frontal
+  vertices.push_back({0.0,0.0,distancia}); //Tapa trasera
+
+  int tam = static_cast<int>(perfil.size());
+  // Generamos las caras por barrido
+  for (int i=0;i<tam-1;i++){
+    caras.push_back({i,i+1,static_cast<int>(vertices.size()-2)});
+  }
+  caras.push_back({tam-1,0,static_cast<int>(vertices.size()-2)}); //Ultima cara
+
+  //Tapa del fondo pintamos en el sentido de las agujas del reloj
+  for (int i=tam;i<static_cast<int>(vertices.size())-4;i++){
+    caras.push_back({i,static_cast<int>(vertices.size()-1),i+1});
+    }
+   caras.push_back({static_cast<int>(vertices.size())-4,static_cast<int>(vertices.size())-3,static_cast<int>(vertices.size())-1}); //Ultima cara
+   caras.push_back({static_cast<int>(vertices.size())-3,tam,static_cast<int>(vertices.size())-1}); //Ultima cara
 }
 
 void Perfil::generaPuntosTapas(){
@@ -161,6 +223,7 @@ void Perfil::generaTapaA(){
         /***********************
            Tapa Arriba
          ************************/
+
         carasTapaA.clear();
         for (int i=1; i<=nDivisiones; i++) {
                 caras.push_back({static_cast<int>(i*perfil.size()-1),static_cast<int>((i+1)*perfil.size()-1),static_cast<int>(vertices.size()-1)}); //vertices final -2 posiciones, punto t
