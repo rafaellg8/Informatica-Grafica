@@ -11,9 +11,8 @@ Perfil::Perfil(vector<_vertex3f> perfil){
         setVertices(perfil); //SI solo tenemos esos puntos, serán nuestros vertices
 }
 
-Perfil::Perfil(vector<_vertex3f>perfil,float grados,int nDivisiones){
+Perfil::Perfil(vector<_vertex3f>perfil,int nDivisiones){
         this->perfil = perfil;
-        this->grados = grados;
         this->nDivisiones = nDivisiones;
         vertices = perfil;
 
@@ -27,12 +26,13 @@ Perfil::Perfil(string plyfile){
         perfil = obj.getVertices();
         grados = 360.0;
         nDivisiones = 18;
+        vertices = perfil;
         //Divisiones por defecto 25
         creaObjRevo();
         insertarDatos(vertices,caras);
 }
 
-Perfil::Perfil(vector<_vertex3f> trayectoria,float distancia){
+Perfil::Perfil(vector<_vertex3f> trayectoria,float distancia,bool barre){
         perfil = trayectoria;
         vertices = perfil;
 

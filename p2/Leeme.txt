@@ -19,7 +19,7 @@ ir generando los demás puntos.
 NOTAS
 
 Al iniciar el programa p2, nos pedirá el tamaño de las aristas de las figuras de la práctica 1(no se ha borrado), y el nombre
-del archivo ply. He añadido por comodidad un directorio ply. Los nombres de los archivos se deben introducir tal cual,
+del archivo ply. He añadido por comodidad un directorio ply con algunos archivos de prueba ligeros. Los nombres de los archivos se deben introducir tal cual,
 sin /ply/..., Simplemente el nombre del ply deseado seguido de .ply.
 
 Saber si un objeto tiene tapas, recae en un método de la clase Figura. Tal y como lo he hecho, leo un ply, compruebo si tiene tapas,

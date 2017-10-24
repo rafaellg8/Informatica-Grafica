@@ -23,7 +23,7 @@ private:
   vector<_vertex3i> carasTapaA;
   vector<_vertex3i> carasTapaF;
 
-  float grados;
+  float grados=360;
   int nDivisiones=18; //Numero de divisiones que queremos hacer. Defecto a 18
   int gradosRotacion;
   bool pintaA, pintaF, cuerpo = true; //Pintar las tapas y el cuerpo, por defecto a true
@@ -41,9 +41,10 @@ private:
 public:
   Perfil();
   Perfil(vector<_vertex3f> perfil);
-  Perfil(vector<_vertex3f>perfil,float grados, int nDivisiones);
+  Perfil(vector<_vertex3f>perfil,int nDivisiones);
   Perfil(string plyfile);
-  Perfil(vector<_vertex3f>trayectoria,float distancia); //Solido por barrido
+  Perfil(vector<_vertex3f>trayectoria,float distancia, bool barrido); //Solido por barrido.
+  //El ultimo parametro no es necesario, pero hay que diferenciar el barrido de la revolucion
 
   vector<_vertex3f> getPerfil();
   float getGrados();

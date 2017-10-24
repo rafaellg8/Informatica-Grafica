@@ -64,7 +64,7 @@ Escena::Escena(){
 
         if (objPly.tieneTapas()==false) {
                 cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
-                // perfil=Perfil(objPly.getVertices(),360.0,18);
+                // perfil=Perfil(objPly.getVertices(),18);
                 perfil = Perfil("ply/perfil.ply");
                 figuras.push_back(perfil);
         }
@@ -73,7 +73,7 @@ Escena::Escena(){
         //Trayectoria para el objeto por barrido
         trayectoria= {{0,-50,0},{25,-25,0},{25,25,0},{0,50,0},{-25,25,0},{-25,-25,0}};
 
-        Perfil barrido(trayectoria,100.5); //Trayectoria, distancia de barrido
+        Perfil barrido(trayectoria,100.5,true); //Trayectoria, distancia de barrido
 
         figuras[0]=barrido;
 
@@ -210,7 +210,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 int divi;         //Divisiones
                 cin>>divi;
                 figuraActual = 4;
-                perfil = Perfil(perfil.getPerfil(),360.0,divi);
+                perfil = Perfil(perfil.getPerfil(),divi);
                 figuras[4]=perfil;
                 change_projection();
                 return 0;
