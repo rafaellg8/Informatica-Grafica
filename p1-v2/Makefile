@@ -15,7 +15,8 @@ CXXFLAGS=  -g -I/usr/include -I. -std=c++11
 # Se indica directorios donde encontrar las funciontecas con -L. Usando -l seguido del
 # nombre se indica la funcionteca que se desea enlazar.
 #
-LDFLAGS=  -lGLU -lGL -lglut
+#Para Apple
+LDFLAGS= -framework OpenGL -framework GLUT -framework IOKit
 
 # definicion del compilador
 #
