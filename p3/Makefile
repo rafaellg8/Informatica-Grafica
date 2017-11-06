@@ -37,7 +37,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o
+OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o
 # orden que sera ejecutada por defecto
 #
 default : $(OBJ)/practica.o
@@ -47,7 +47,7 @@ default : $(OBJ)/practica.o
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica.o: $(OBJECTS)
-	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/escena.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
@@ -78,6 +78,9 @@ $(OBJ)/ObjetoPLY.o:
 
 $(OBJ)/Perfil.o: $(SRC)/Perfil.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/Perfil.cc  -o $(OBJ)/Perfil.o -I $(INC)
+
+$(OBJ)/cabina.o: $(SRC)/cabina.cc
+	$(CC) $(CXXFLAGS) -c $(SRC)/cabina.cc  -o $(OBJ)/cabina.o -I $(INC)
 #
 #
 clean:

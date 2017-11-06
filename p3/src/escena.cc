@@ -17,12 +17,14 @@
 #include "file_ply_stl.h"
 #include "ObjetoPLY.h"
 #include "Perfil.h"
+#include "cabina.h"
 
 // #include "figura.h"
 
 int transformacion=0;
 
 Perfil perfil;
+Cabina cabina;
 
 Escena::Escena(){
         Front_plane=200;
@@ -64,8 +66,8 @@ Escena::Escena(){
 
         if (objPly.tieneTapas()==false) {
                 cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
-                // perfil=Perfil(objPly.getVertices(),18);
-                perfil = Perfil("ply/perfil.ply");
+                perfil=Perfil(objPly.getVertices(),18);
+                // perfil = Perfil("ply/perfil.ply");
                 figuras.push_back(perfil);
         }
 
@@ -73,9 +75,7 @@ Escena::Escena(){
         //Trayectoria para el objeto por barrido
         trayectoria= {{0,-50,0},{25,-25,0},{25,25,0},{0,50,0},{-25,25,0},{-25,-25,0}};
 
-        Perfil barrido(trayectoria,100.5,true); //Trayectoria, distancia de barrido
-
-        figuras[0]=barrido;
+        // Perfil barrido(trayectoria,100.5,true); //Trayectoria, distancia de barrido
 
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
 
@@ -100,7 +100,11 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
 //***************************************************************************
 void Escena::draw_objects() {
         // Cubo cubo;
-        figuras[figuraActual].draw(gltype,4.5);
+        if (figuraActual==5){
+            cabina.pinta(gltype,4.5);
+        }
+        else
+            figuras[figuraActual].draw(gltype,4.5);
 }
 
 
@@ -171,37 +175,10 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 change_projection();
                 return 0;
                 break;
-        case '6': //Pintar solo el cuerpo
-                cout<<"\nPintando revolucion sin tapas"<<endl;
-                figuraActual = 4;
-                perfil.pinta(false,false,true);
-                figuras[4]=perfil;
-                change_projection();
-                return 0;
-                break;
-        case '7':         //Pintar todo menos la tapa de abajo
-                cout<<"\nPintando revolucion sin tapa de abajo"<<endl;
-                figuraActual = 4;
-                perfil.pinta(true,false,true);
-                figuras[4]=perfil;
-                change_projection();
-                return 0;
-                break;
-        case '8':                 //Pintar todo menos la parte de arriba
-                cout<<"\nPintando revolucion sin tapa de arriba"<<endl;
-                figuraActual = 4;
-                perfil.pinta(false,true,true);
-                figuras[4]=perfil;
-                change_projection();
-                return 0;
-                break;
 
-        case '9':                         //Pintar todo menos la parte de arriba
-                cout<<"\nPintando revolucion solo las tapas"<<endl;
-                figuraActual = 4;
-                perfil.pinta(true,true,false);
-                figuras[4]=perfil;
-                change_projection();
+        case '6':
+                figuraActual = 5;
+                // change_projection();
                 return 0;
                 break;
 

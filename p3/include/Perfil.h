@@ -31,7 +31,6 @@ private:
   bool calculaRotaciones();
   float radToGrados(double angulo);
   void revolucionar();
-  void creaObjRevo(); //Funcion que crea el objeto completo. Revoluciona,generaCaras,tapas
   void generaCaras();
   void generaTapas();
   void generaPuntosTapas();
@@ -42,6 +41,7 @@ public:
   Perfil();
   Perfil(vector<_vertex3f> perfil);
   Perfil(vector<_vertex3f>perfil,int nDivisiones);
+  Perfil(vector<_vertex3f> perfil,int nDivisiones,int tapas); //Perfil donde elegimos si queremos o no tapas
   Perfil(string plyfile);
   Perfil(vector<_vertex3f>trayectoria,float distancia, bool barrido); //Solido por barrido.
   //El ultimo parametro no es necesario, pero hay que diferenciar el barrido de la revolucion
@@ -62,6 +62,9 @@ public:
   void quitaTapaA();
   void quitaTapaF();
   void quitaCuerpo();
+
+protected:
+    void creaObjRevo(); //Funcion que crea el objeto completo. Revoluciona,generaCaras,tapas
 };
 
 #endif
