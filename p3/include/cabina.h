@@ -3,11 +3,12 @@
 
 #include "Perfil.h"
 #include "figura.h"
+#include "ObjetoPLY.h"
 
 class Cabina : public Figura
 {
 private:
-	Perfil nave; //nave entera
+	ObjetoPLY nave; //nave entera
 	Perfil cabina; //Semiesfera del piloto
 public:
 	Cabina();

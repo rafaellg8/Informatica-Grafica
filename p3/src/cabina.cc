@@ -8,7 +8,7 @@ Cabina::Cabina(){
 
 	vSemi = {{1.5,-4.5,0.0},{1.5,-3.5,0.0},{1.5,-1.5,0.0}};
 
-	nave = Perfil(v,60);
+	nave = ObjetoPLY("ply/sphere.ply");
 	cabina = Perfil(vSemi,8); //Semiesfera
 	// nave.quitaTapaA();
 	// nave.quitaTapaF();
@@ -26,12 +26,12 @@ Cabina::Cabina(){
 
 void Cabina::pinta(int gltype, float tamPunto){
 	glPushMatrix();
-		glScalef(10,10,10);
+		glScalef(0.37,0.37,0.37);
 		nave.draw(gltype,tamPunto);
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(0.0,0.0,52.0);
-		glScalef(8,8,1.5);
+		glTranslatef(0.0,0.0,50.2);
+		glScalef(20,20,3.0);
 		glRotatef(90,1,0,0);
 		glRotatef(180,0,1,0);
 		cabina.draw(gltype,tamPunto);
