@@ -1,17 +1,16 @@
-#ifndef _CABINA_
-#define _CABINA_
+#ifndef _CABINA_H
+#define _CABINA_H
 
 #include "Perfil.h"
-#include "figura.h"
 #include "ObjetoPLY.h"
 
-class Cabina : public Figura
+class Cabina
 {
 private:
 	ObjetoPLY nave; //nave entera
 	Perfil cabina; //Semiesfera del piloto
 public:
 	Cabina();
-	void pinta(int gltype,float tamPunto);
+	void pintar(int gltype,float tamPunto);
 };
 #endif

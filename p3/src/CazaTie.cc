@@ -2,14 +2,12 @@
 
 CazaTie::CazaTie(){}
 
-CazaTie::CazaTie(Cabina cabina, AlasCompletas alas,Canion canion){
-	this->cabina = cabina;
-	this->AlasCompletas = alas;
-	this->canion = canion;
-}
 
-void CazaTie::dibujar(){
-	cabina.pintar();
-	alas.pintar();
-	canion.pintar();
+void CazaTie::pintar(int glType, float lado){
+	glPushMatrix();
+		glScalef(0.6,0.6,0.6);
+		cabina.pintar(glType,lado);
+	glPopMatrix();
+	alas.pintar(glType,lado);
+	canion.pintar(glType,lado);
 }

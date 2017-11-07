@@ -17,21 +17,21 @@ Cabina::Cabina(){
 	/**
 	ÑAPA
 	*/ 
-	insertarDatos(nave.getVertices(),nave.getCaras());
+	// insertarDatos(nave.getVertices(),nave.getCaras());
 	/**
 	FIN DE ÑAPA
 	*/
 
 }
 
-void Cabina::pinta(int gltype, float tamPunto){
+void Cabina::pintar(int gltype, float tamPunto){
 	glPushMatrix();
 		glScalef(0.37,0.37,0.37);
 		nave.draw(gltype,tamPunto);
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(0.0,0.0,50.2);
-		glScalef(20,20,3.0);
+		glTranslatef(0.0,0.0,48.0);
+		glScalef(10,10,1.0);
 		glRotatef(90,1,0,0);
 		glRotatef(180,0,1,0);
 		cabina.draw(gltype,tamPunto);

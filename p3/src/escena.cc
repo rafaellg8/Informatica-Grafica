@@ -17,14 +17,18 @@
 #include "file_ply_stl.h"
 #include "ObjetoPLY.h"
 #include "Perfil.h"
+
+#include "CazaTie.h"
 #include "cabina.h"
+#include "Alas.h"
+#include "Canion.h"
 
 // #include "figura.h"
 
 int transformacion=0;
 
 Perfil perfil;
-Cabina cabina;
+CazaTie caza;
 
 Escena::Escena(){
         Front_plane=200;
@@ -34,9 +38,9 @@ Escena::Escena(){
         ejes.changeAxisSize(5000);
         gltype = 0; //Inicializacion por defecto
 
-        float lado;
-        cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
-        cin>>lado;
+        float lado=25;
+        // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
+        // cin>>lado;
 
         if (lado>0) {
                 Cubo cubo(lado); //Creamos el cubo
@@ -55,9 +59,9 @@ Escena::Escena(){
                 figuras.push_back(piramide);
         }
 
-        string inputFile;
-        cout<<"\nIntroduzca el nombre del fichero ply, sin direccion absoluta. Ej: cow.ply"<<endl;
-        cin>>inputFile;
+        string inputFile="ant.ply";
+        // cout<<"\nIntroduzca el nombre del fichero ply, sin direccion absoluta. Ej: cow.ply"<<endl;
+        // cin>>inputFile;
 
         ObjetoPLY objPly("ply/"+inputFile);
         figuras.push_back(objPly); //SI tiene tapas no revolucionamos
@@ -101,7 +105,7 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
 void Escena::draw_objects() {
         // Cubo cubo;
         if (figuraActual==5){
-            cabina.pinta(gltype,4.5);
+            caza.pintar(gltype,4.5);
         }
         else
             figuras[figuraActual].draw(gltype,4.5);
@@ -178,7 +182,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
 
         case '6':
                 figuraActual = 5;
-                // change_projection();
+                change_projection();
                 return 0;
                 break;
 
@@ -224,13 +228,13 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
 void Escena::change_projection()  {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        // glFrustum(-Width,Width,-Height,Height,Front_plane,Back_plane);
-        glFrustum(-figuras[figuraActual].getAnchoMax(),
-                  figuras[figuraActual].getAnchoMax(),
-                  -figuras[figuraActual].getAltoMax(),
-                  figuras[figuraActual].getAltoMax(),
-                  Front_plane,
-                  Back_plane);
+        glFrustum(-Width,Width,-Height,Height,Front_plane,Back_plane);
+        // glFrustum(-figuras[figuraActual].getAnchoMax(),
+        //           figuras[figuraActual].getAnchoMax(),
+        //           -figuras[figuraActual].getAltoMax(),
+        //           figuras[figuraActual].getAltoMax(),
+        //           Front_plane,
+        //           Back_plane);
 }
 
 
