@@ -15,7 +15,6 @@ Hexagono::Hexagono(){
 	//Hexagono interior
 	for (int i=6;i<size-2;i++){
 		this->caras.push_back({i,(i+1),size-1});
-		cout<<i<<" "<<i+1<<" "<<size-1<<endl;
 	}
 	this->caras.push_back({11,6,12});
 	insertarDatos(vertices,caras);

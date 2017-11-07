@@ -20,6 +20,8 @@ public:
 	void pintarBrazos(int glType, float tamPunto);
 	void pintarBases(int glType, float tamPunto);
 	void pintarHexagonos(int glType, float tamPunto);
+
+	void obtenerExtremos(float ancho, float alto);
 };
 
 #endif

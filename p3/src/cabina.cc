@@ -10,17 +10,6 @@ Cabina::Cabina(){
 
 	nave = ObjetoPLY("ply/sphere.ply");
 	cabina = Perfil(vSemi,8); //Semiesfera
-	// nave.quitaTapaA();
-	// nave.quitaTapaF();
-	v.clear();
-	
-	/**
-	ÑAPA
-	*/ 
-	// insertarDatos(nave.getVertices(),nave.getCaras());
-	/**
-	FIN DE ÑAPA
-	*/
 
 }
 

@@ -19,11 +19,6 @@
 #include "Perfil.h"
 
 #include "CazaTie.h"
-#include "cabina.h"
-#include "Alas.h"
-#include "Canion.h"
-
-// #include "figura.h"
 
 int transformacion=0;
 
@@ -228,13 +223,20 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
 void Escena::change_projection()  {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glFrustum(-Width,Width,-Height,Height,Front_plane,Back_plane);
-        // glFrustum(-figuras[figuraActual].getAnchoMax(),
-        //           figuras[figuraActual].getAnchoMax(),
-        //           -figuras[figuraActual].getAltoMax(),
-        //           figuras[figuraActual].getAltoMax(),
-        //           Front_plane,
-        //           Back_plane);
+        
+        float ancho,alto;
+        caza.obtenerExtremos(ancho,alto);
+
+        if (figuraActual==5){//Caza Tie
+            glFrustum(-Width,Width,-Height,Height,Front_plane,Back_plane);
+        }else{
+        glFrustum(-figuras[figuraActual].getAnchoMax(),
+                  figuras[figuraActual].getAnchoMax(),
+                  -figuras[figuraActual].getAltoMax(),
+                  figuras[figuraActual].getAltoMax(),
+                  Front_plane,
+                  Back_plane);
+    }
 }
 
 
