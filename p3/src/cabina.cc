@@ -11,6 +11,9 @@ Cabina::Cabina(){
 	nave = ObjetoPLY("ply/sphere.ply");
 	cabina = Perfil(vSemi,8); //Semiesfera
 
+	cabina.setColores(0.0,0.0,0.0);
+	//la nave no ponemos color por defecto la pinta gris
+
 }
 
 void Cabina::pintar(int gltype, float tamPunto){

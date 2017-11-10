@@ -17,9 +17,9 @@ void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
         n_vertices = this->vertices.size();
         n_caras = this->caras.size();
 
-        //Por defecto todos los vertices en amarillo
+        //Por defecto todos los vertices en gris
         for (int i=0; i<(n_vertices)*3; i++) { //vertices x RGB
-                colores.push_back(0.0); //R
+                colores.push_back(0.5); //R
                 colores.push_back(0.9); //G
                 colores.push_back(0.5); //B
         }
@@ -52,6 +52,17 @@ int Figura::getVerticesSize(){
 
 int Figura::getCarasSize(){
         return n_caras;
+}
+
+void Figura::setColores(float r,float g,float b){
+    //Borramos los colores
+    this->colores.clear();
+
+        for (int i=0; i<(n_vertices)*3; i++) { //vertices x RGB
+                this->colores.push_back(r); //R
+                this->colores.push_back(g); //G
+                this->colores.push_back(b); //B
+        }
 }
 
 float Figura::getAltoMax(){
@@ -165,7 +176,7 @@ void Figura::draw(int tipo, float tamanioPunto){
         //Activamos vertices y el color
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_COLOR_ARRAY);
-        glColorPointer(3,GL_INT, 0, &colores[0]);
+        glColorPointer(3,GL_INT, 0, &colores[0]); //Establecemos el color
         glVertexPointer(3, GL_FLOAT, 0,  &vertices[0]);
 
         switch (tipo) {

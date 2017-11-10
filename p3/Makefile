@@ -37,7 +37,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/CazaTie.o
+OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o
 # orden que sera ejecutada por defecto
 #
 default : $(OBJ)/practica.o
@@ -47,7 +47,7 @@ default : $(OBJ)/practica.o
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica.o: $(OBJECTS)
-	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/CazaTie.o $(OBJ)/escena.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/escena.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc $(OBJ)/
 	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
@@ -91,8 +91,11 @@ $(OBJ)/Alas.o: $(SRC)/Alas.cc $(OBJ)/Perfil.o $(OBJ)/Hexagono.o
 $(OBJ)/Canion.o: $(SRC)/Canion.cc $(OBJ)/Perfil.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/Canion.cc  -o $(OBJ)/Canion.o -I $(INC)
 
+$(OBJ)/Rayo.o: $(SRC)/Rayo.cc $(OBJ)/Perfil.o
+	$(CC) $(CXXFLAGS) -c $(SRC)/Rayo.cc  -o $(OBJ)/Rayo.o -I $(INC)
 
-$(OBJ)/CazaTie.o: $(SRC)/CazaTie.cc $(OBJ)/Cabina.o $(OBJ)/Alas.o $(OBJ)/Canion.o
+
+$(OBJ)/CazaTie.o: $(SRC)/CazaTie.cc $(OBJ)/Cabina.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/CazaTie.cc  -o $(OBJ)/CazaTie.o -I $(INC)
 #
 #

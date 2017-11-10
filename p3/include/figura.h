@@ -93,6 +93,10 @@ float getAnchoMin();
 
 void calcularNormales();
 
+void setColores(float r,float g,float b);
+
+void setColores(vector<float> colores);
+
 bool tieneTapas(); //Comprueba que tenga alguna tapa
 
 /**
