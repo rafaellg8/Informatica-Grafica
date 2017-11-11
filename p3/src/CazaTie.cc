@@ -1,12 +1,18 @@
 #include "CazaTie.h"
 
+float l; //Lado
+int tipo; //Tipo
+
 CazaTie::CazaTie(){
 	rayoI.setColores(1.0,0.0,0.0);
 	rayoD.setColores(1.0,0.0,0.0);
+	rotacionX=rotacionY=rotacionZ=0;
 }
 
 
 void CazaTie::pintar(int glType, float lado){
+	tipo=glType;
+	l = lado;
 
 	glPushMatrix();
 		glScalef(0.6,0.6,0.6);
@@ -94,6 +100,32 @@ void CazaTie::downRotZ(){
 	grados=rotacionZ;
 }
 
+void CazaTie::upRotX(){
+	if (rotacionX<=90)
+		rotacionX+=1;
+	ejeX=true;
+	ejeY=ejeZ=false;
+	grados=rotacionX;
+}
+
+void CazaTie::downRotX(){
+	if (rotacionX>=-90)
+		rotacionX-=1;
+	ejeX=true;
+	ejeY=ejeZ=false;
+	grados=rotacionX;
+}
+
 void CazaTie::rotarAlas(bool ejeX, bool ejeY, bool ejeZ, float grados){
-	glRotatef(grados,ejeX,ejeY,ejeZ);
+	if (ejeX)
+		plegarAlas(tipo,l);
+	else
+		glRotatef(grados,ejeX,ejeY,ejeZ);
+}
+
+void CazaTie::plegarAlas(int tipo,float l){
+	alas.pintarBrazos(tipo,l);
+	alas.pintarBases(tipo,l);
+	glRotatef(grados,1,0,0);
+	alas.pintarHexagonos(tipo,l);
 }

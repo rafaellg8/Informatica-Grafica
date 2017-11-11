@@ -194,13 +194,13 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         }
         switch(Tecla1){
         //Grados de libertad
-        case 'C':
+        case 32:
                 figuraActual=5;
                 caza.mueveDisparo();
                 return 0;
                 break;
-
-        case 'Z':
+                
+        case 'C':
                 figuraActual=5;
                 caza.upRotZ();
                 return 0;
@@ -212,13 +212,13 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 return 0;
                 break;
 
-         case 'c':
+        case 'Z':
                 figuraActual=5;
-                caza.mueveDisparo();
+                caza.upRotX();
                 return 0;
                 break;
 
-        case 'z':
+        case 'c':
                 figuraActual=5;
                 caza.downRotZ();
                 return 0;
@@ -227,6 +227,11 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         case 'x':
                 figuraActual=5;
                 caza.downRotY();
+                return 0;
+                break;
+        case 'z':
+                figuraActual=5;
+                caza.downRotX();
                 return 0;
                 break;
         }

@@ -33,7 +33,7 @@ public:
 	/**
 	Rotaciones y animaciones
 	*/
-	void plegarAlas();
+	void plegarAlas(int glType,float lado);
 	void rotacionCompletaAlas(); //Rota sobre el eje Z las alas y los brazos
 	void rotarAlas(bool ejeX, bool ejeY, bool ejeZ,float grados); //Elegimos un eje y los grados
 	void rotarCanion();
@@ -42,8 +42,10 @@ public:
 
 	void upRotZ(); //Aumentar rotacion eje Z
 	void upRotY(); //Aumentar rotacion eje Y
+	void upRotX();
 	void downRotZ();
 	void downRotY();
+	void downRotX();
 
 	/**
 	Obtiene los dos extremos mayores. Como tenemos una figura simétrica, los más pequeños serán negativos.
