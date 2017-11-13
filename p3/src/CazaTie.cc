@@ -19,18 +19,19 @@ void CazaTie::pintar(int glType, float lado){
 	Caniones y cabina
 	*/
 	glPushMatrix();
-	cabina.pintar(glType,lado);
+	if (ejeX)
+		rotar(ejeX,ejeY,ejeZ,grados); //Rotamos la cabina
+		cabina.pintar(glType,lado);
+		disparar(glType,lado); //pinta el disparo
 	glPopMatrix();
 	
-
 	glPushMatrix();
-		// rotacionCompletaAlas();
-	rotarAlas(ejeX,ejeY,ejeZ,grados);
-	alas.pintar(glType,lado);
+	if (!ejeX)
+		rotar(ejeX,ejeY,ejeZ,grados);
+		alas.pintar(glType,lado);
 	glPopMatrix();
 
 
-	disparar(glType,lado); //pinta el disparo
 }
 
 void CazaTie::obtenerExtremos(float ancho, float alto){
@@ -38,7 +39,7 @@ void CazaTie::obtenerExtremos(float ancho, float alto){
 }
 
 void CazaTie::mueveDisparo(){
-	traslacionZ+=0.5;
+	traslacionZ++;
 	traslacionZ = static_cast<int>((traslacionZ))%100; //Para simular un disparo, cuando desaparece, empieza desde la posicion inicial
 	if (traslacionZ==0)
 		traslacionZ=0;
@@ -151,12 +152,11 @@ void CazaTie::downTraslacionZ(){
 		traslacionZ-=0.5;
 }
 
-void CazaTie::rotarAlas(bool ejeX, bool ejeY, bool ejeZ, float grados){
-	if (ejeX)
-		plegarAlas(tipo,l);
-	else{
+void CazaTie::rotar(bool ejeX, bool ejeY, bool ejeZ, float grados){
+	// if (ejeX)
+		// plegarAlas(tipo,l);
+	// else
 		glRotatef(grados,ejeX,ejeY,ejeZ);
-	}
 }
 
 void CazaTie::plegarAlas(int tipo,float l){

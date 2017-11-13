@@ -36,7 +36,7 @@ public:
 	*/
 	void plegarAlas(int glType,float lado);
 	void rotacionCompletaAlas(); //Rota sobre el eje Z las alas y los brazos
-	void rotarAlas(bool ejeX, bool ejeY, bool ejeZ,float grados); //Elegimos un eje y los grados
+	void rotar(bool ejeX, bool ejeY, bool ejeZ,float grados); //Elegimos un eje y los grados
 	void rotarCanion();
 	void disparar(int glType,float lado); //Dispara rayos laser	
 	void mueveDisparo();
