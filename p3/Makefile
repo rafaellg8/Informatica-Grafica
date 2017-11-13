@@ -79,7 +79,7 @@ $(OBJ)/ObjetoPLY.o:
 $(OBJ)/Perfil.o: $(SRC)/Perfil.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/Perfil.cc  -o $(OBJ)/Perfil.o -I $(INC)
 
-$(OBJ)/cabina.o: $(SRC)/cabina.cc
+$(OBJ)/cabina.o: $(SRC)/cabina.cc $(OBJ)/Canion.o $(OBJ)/Rayo.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/cabina.cc  -o $(OBJ)/cabina.o -I $(INC)
 
 $(OBJ)/Hexagono.o: $(SRC)/Hexagono.cc
@@ -89,7 +89,7 @@ $(OBJ)/Alas.o: $(SRC)/Alas.cc $(OBJ)/Perfil.o $(OBJ)/Hexagono.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/Alas.cc  -o $(OBJ)/Alas.o -I $(INC)
 
 $(OBJ)/Canion.o: $(SRC)/Canion.cc $(OBJ)/Perfil.o
-	$(CC) $(CXXFLAGS) -c $(SRC)/Canion.cc  -o $(OBJ)/Canion.o -I $(INC)
+	$(CC) $(CXXFLAGS) -c $(SRC)/Canion.cc -o $(OBJ)/Canion.o -I $(INC)
 
 $(OBJ)/Rayo.o: $(SRC)/Rayo.cc $(OBJ)/Perfil.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/Rayo.cc  -o $(OBJ)/Rayo.o -I $(INC)

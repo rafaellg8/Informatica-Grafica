@@ -5,18 +5,13 @@
 #include "cabina.h"
 #include "Alas.h"
 #include "Canion.h"
-#include "Rayo.h"
+
 
 class CazaTie
 {
 private:
-	Cabina cabina;
+	Cabina cabina; //La nave en si
 	Alas alas;
-	Canion canionD; //canion derecha
-	Canion canionI; //canion izquierda
-
-	Rayo rayoI;
-	Rayo rayoD;
 
 	float traslacionZ=10; //Traslacion del disparo sobre el eje z
 	//Se ira sumando cada vez que se pulse la tecla z

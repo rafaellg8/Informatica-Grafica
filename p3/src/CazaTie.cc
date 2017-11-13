@@ -5,8 +5,8 @@ float l; //Lado
 int tipo; //Tipo
 
 CazaTie::CazaTie(){
-	rayoI.setColores(1.0,0.0,0.0);
-	rayoD.setColores(1.0,0.0,0.0);
+	// rayoI.setColores(1.0,0.0,0.0);
+	// rayoD.setColores(1.0,0.0,0.0);
 	rotacionX=rotacionY=rotacionZ=0;
 }
 
@@ -15,27 +15,21 @@ void CazaTie::pintar(int glType, float lado){
 	tipo=glType;
 	l = lado;
 
+	/**
+	Caniones y cabina
+	*/
 	glPushMatrix();
-		glScalef(0.6,0.6,0.6);
-		cabina.pintar(glType,lado);
+	cabina.pintar(glType,lado);
 	glPopMatrix();
+	
 
 	glPushMatrix();
 		// rotacionCompletaAlas();
-		rotarAlas(ejeX,ejeY,ejeZ,grados);
-		alas.pintar(glType,lado);
+	rotarAlas(ejeX,ejeY,ejeZ,grados);
+	alas.pintar(glType,lado);
 	glPopMatrix();
 
-	glPushMatrix();
-		glTranslatef(10,0,0);
-		canionI.pintar(glType,lado);
-	glPopMatrix();
-	glPushMatrix();
-		glTranslatef(-10,0,0);
-		canionD.pintar(glType,lado);
-	glPopMatrix();
 
-	cout<<animar<<" "<<traslacionZ<<endl;
 	disparar(glType,lado); //pinta el disparo
 }
 
@@ -44,28 +38,15 @@ void CazaTie::obtenerExtremos(float ancho, float alto){
 }
 
 void CazaTie::mueveDisparo(){
-	traslacionZ+=3;
+	traslacionZ+=0.5;
 	traslacionZ = static_cast<int>((traslacionZ))%100; //Para simular un disparo, cuando desaparece, empieza desde la posicion inicial
 	if (traslacionZ==0)
-		traslacionZ=10;
+		traslacionZ=0;
+	cabina.setTraslacionRayo(traslacionZ);
 }
 
 void CazaTie::disparar(int glType,float lado){
-	/**
-	Pintamos el disparo
-	A medidad que se aleja, se alarga el laser
-	*/
-	glPushMatrix();
-		glScalef(1,1,traslacionZ*0.1);
-		glTranslatef(10,0,traslacionZ);
-		rayoI.pintar(glType,lado);
-	glPopMatrix();
-
-	glPushMatrix();
-		glScalef(1,1,traslacionZ*0.1);
-		glTranslatef(-10,0,traslacionZ);
-		rayoD.pintar(glType,lado);
-	glPopMatrix();
+	cabina.disparar(glType,lado);
 }
 
 void CazaTie::rotacionCompletaAlas(){
@@ -122,52 +103,52 @@ void CazaTie::upVelocidadX(){
 	ejeX=true;
 	ejeY=ejeZ=false;
 	if (velocidadX<45)
-		velocidadX++;
+		velocidadX+=0.5;
 }
 
 void CazaTie::upVelocidadY(){
 	ejeY=true;
 	ejeX=ejeZ=false;
 	if (velocidadY<30)
-		velocidadY++;	
+		velocidadY+=0.5;	
 }
 
 void CazaTie::upVelocidadZ(){
 	ejeZ=true;
 	ejeX=ejeY=false;
 	if (velocidadZ<45)
-		velocidadZ++;
+		velocidadZ+=0.5;
 }
 
 void CazaTie::downVelocidadX(){
 	ejeX=true;
 	ejeY=ejeZ=false;
 	if (velocidadX>0)
-		velocidadX--;
+		velocidadX-=0.5;
 }
 
 void CazaTie::downVelocidadY(){
 	ejeY=true;
 	ejeX=ejeZ=false;
 	if (velocidadY>0)
-		velocidadY--;
+		velocidadY-=0.5;
 }
 
 void CazaTie::downVelocidadZ(){
 	ejeZ=true;
 	ejeX=ejeY=false;
 	if (velocidadZ>0)
-		velocidadZ--;
+		velocidadZ-=0.5;
 }
 
 void CazaTie::upTraslacionZ(){
 	if (traslacionZ<30)
-		traslacionZ++;
+		traslacionZ+=0.5;
 }
 
 void CazaTie::downTraslacionZ(){
 	if (traslacionZ>0)
-		traslacionZ--;
+		traslacionZ-=0.5;
 }
 
 void CazaTie::rotarAlas(bool ejeX, bool ejeY, bool ejeZ, float grados){
@@ -188,6 +169,7 @@ void CazaTie::plegarAlas(int tipo,float l){
 void CazaTie::animarte(){
 	if (ejeX){
 		grados+=velocidadX;
+
 	}
 	if (ejeY){
 		grados+=velocidadY;
@@ -195,12 +177,14 @@ void CazaTie::animarte(){
 	if (ejeZ){
 		grados+=velocidadZ;
 	}
-		if (traslacionZ<100)
-			traslacionZ++;
+	if (traslacionZ<100)
+		traslacionZ+=0.5;
 		else traslacionZ=0; //Cuando llega a 100 vuelve a empezar
+
+	mueveDisparo();
 }
 
-void CazaTie::setAnimar(){
+	void CazaTie::setAnimar(){
 	this->animar = !animar; //Cambiamos el estado
 }
 

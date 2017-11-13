@@ -270,19 +270,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 figuraActual=5;
                 caza.downVelocidadZ();
                 return 0;
-                break;
-
-        case 'V':
-                figuraActual=5;
-                caza.upTraslacionZ();
-                return 0;
-                break;
-
-        case 'v':
-                figuraActual=5;
-                caza.downTraslacionZ();
-                return 0;
-                break;
+                break; 
 
         case '<':
                 figuraActual=5;
