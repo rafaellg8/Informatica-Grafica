@@ -1,5 +1,6 @@
 #include "CazaTie.h"
 
+/*Variables globales auxiliares*/
 float l; //Lado
 int tipo; //Tipo
 
@@ -34,6 +35,7 @@ void CazaTie::pintar(int glType, float lado){
 		canionD.pintar(glType,lado);
 	glPopMatrix();
 
+	cout<<animar<<" "<<traslacionZ<<endl;
 	disparar(glType,lado); //pinta el disparo
 }
 
@@ -116,11 +118,64 @@ void CazaTie::downRotX(){
 	grados=rotacionX;
 }
 
+void CazaTie::upVelocidadX(){
+	ejeX=true;
+	ejeY=ejeZ=false;
+	if (velocidadX<45)
+		velocidadX++;
+}
+
+void CazaTie::upVelocidadY(){
+	ejeY=true;
+	ejeX=ejeZ=false;
+	if (velocidadY<30)
+		velocidadY++;	
+}
+
+void CazaTie::upVelocidadZ(){
+	ejeZ=true;
+	ejeX=ejeY=false;
+	if (velocidadZ<45)
+		velocidadZ++;
+}
+
+void CazaTie::downVelocidadX(){
+	ejeX=true;
+	ejeY=ejeZ=false;
+	if (velocidadX>0)
+		velocidadX--;
+}
+
+void CazaTie::downVelocidadY(){
+	ejeY=true;
+	ejeX=ejeZ=false;
+	if (velocidadY>0)
+		velocidadY--;
+}
+
+void CazaTie::downVelocidadZ(){
+	ejeZ=true;
+	ejeX=ejeY=false;
+	if (velocidadZ>0)
+		velocidadZ--;
+}
+
+void CazaTie::upTraslacionZ(){
+	if (traslacionZ<30)
+		traslacionZ++;
+}
+
+void CazaTie::downTraslacionZ(){
+	if (traslacionZ>0)
+		traslacionZ--;
+}
+
 void CazaTie::rotarAlas(bool ejeX, bool ejeY, bool ejeZ, float grados){
 	if (ejeX)
 		plegarAlas(tipo,l);
-	else
+	else{
 		glRotatef(grados,ejeX,ejeY,ejeZ);
+	}
 }
 
 void CazaTie::plegarAlas(int tipo,float l){
@@ -128,4 +183,27 @@ void CazaTie::plegarAlas(int tipo,float l){
 	alas.pintarBases(tipo,l);
 	glRotatef(grados,1,0,0);
 	alas.pintarHexagonos(tipo,l);
+}
+
+void CazaTie::animarte(){
+	if (ejeX){
+		grados+=velocidadX;
+	}
+	if (ejeY){
+		grados+=velocidadY;
+	}
+	if (ejeZ){
+		grados+=velocidadZ;
+	}
+		if (traslacionZ<100)
+			traslacionZ++;
+		else traslacionZ=0; //Cuando llega a 100 vuelve a empezar
+}
+
+void CazaTie::setAnimar(){
+	this->animar = !animar; //Cambiamos el estado
+}
+
+bool CazaTie::getAnimar(){
+	return this->animar;
 }

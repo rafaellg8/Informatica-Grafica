@@ -21,6 +21,12 @@ void draw_scene(void)  {
 								glutSwapBuffers();
 }
 
+void animacion(void){
+	if (escena!=NULL) escena->animar();
+	glutPostRedisplay();
+								// glutSwapBuffers();
+}
+
 
 //***************************************************************************
 // Funcion llamada cuando se produce un cambio en el tamaño de la ventana
@@ -105,7 +111,10 @@ int main(int argc, char **argv) {
 								glutInitWindowSize(UI_window_width,UI_window_height);
 
 // llamada para crear la ventana, indicando el titulo
-								glutCreateWindow("P2: Rafael Lachica Garrido");
+								glutCreateWindow("P3: Rafael Lachica Garrido");
+
+// llamada funcion desocupada "idle"
+								glutIdleFunc(animacion);
 
 // asignación de la funcion llamada "dibujar" al evento de dibujo
 								glutDisplayFunc(draw_scene);

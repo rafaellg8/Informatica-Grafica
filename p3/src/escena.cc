@@ -115,6 +115,11 @@ void Escena::dibujar() {
         draw_objects();
 }
 
+void Escena::animar(){
+     if (caza.getAnimar())
+        caza.animarte();
+ }
+
 int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         std::cout << "Tecla" << Tecla1<< std::endl;
         switch (toupper(Tecla1)) {
@@ -137,7 +142,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 gltype = 3;
                 return 0;
                 break;
-        case 'N':
+        case '7':
                 gltype = 4;
                 return 0;
                 break;
@@ -194,7 +199,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         }
         switch(Tecla1){
         //Grados de libertad
-        case 32:
+        case 32: //Espacio
                 figuraActual=5;
                 caza.mueveDisparo();
                 return 0;
@@ -232,6 +237,57 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         case 'z':
                 figuraActual=5;
                 caza.downRotX();
+                return 0;
+                break;
+
+        case 'B':
+                figuraActual=5;
+                caza.upVelocidadX();
+                return 0;
+                break;
+        case 'N':
+                figuraActual=5;
+                caza.upVelocidadY();
+                return 0;
+                break;
+        case 'M':
+                figuraActual=5;
+                caza.upVelocidadZ();
+                return 0;
+                break;
+
+        case 'b':
+                figuraActual=5;
+                caza.downVelocidadX();
+                return 0;
+                break;
+        case 'n':
+                figuraActual=5;
+                caza.downVelocidadY();
+                return 0;
+                break;
+        case 'm':
+                figuraActual=5;
+                caza.downVelocidadZ();
+                return 0;
+                break;
+
+        case 'V':
+                figuraActual=5;
+                caza.upTraslacionZ();
+                return 0;
+                break;
+
+        case 'v':
+                figuraActual=5;
+                caza.downTraslacionZ();
+                return 0;
+                break;
+
+        case '<':
+                figuraActual=5;
+                caza.setAnimar();//Pone animar a true o false, en funcion de como estuviese el estado anterior
+                //Por defecto esta falso
                 return 0;
                 break;
         }
@@ -285,7 +341,7 @@ void Escena::redimensionar(int newWidth,int newHeight) {
 
 
 //**************************************************************************
-// Funcion para definir la transformaci�n de vista (posicionar la camara)
+// Funcion para definir la transformación de vista (posicionar la camara)
 //***************************************************************************
 
 
