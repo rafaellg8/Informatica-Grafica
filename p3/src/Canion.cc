@@ -10,8 +10,7 @@ Canion::Canion(){
 }
 
 void Canion::pintar(int glType, float lado){
-	glTranslatef(0,-25,4);
-	glRotatef(90,1,0,0);
-	glScalef(1,5,1);
+	glTranslatef(0,0,4);
 	draw(glType,lado);
+
 }

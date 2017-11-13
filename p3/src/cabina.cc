@@ -18,15 +18,54 @@ Cabina::Cabina(){
 
 void Cabina::pintar(int gltype, float tamPunto){
 	glPushMatrix();
-		glScalef(0.37,0.37,0.37);
+		glScalef(0.22,0.22,0.22);
 		nave.draw(gltype,tamPunto);
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(0.0,0.0,48.0);
-		glScalef(10,10,1.0);
+		glTranslatef(0.0,0.0,30.0);
+		glScalef(8,8,1.0);
 		glRotatef(90,1,0,0);
 		glRotatef(180,0,1,0);
 		cabina.draw(gltype,tamPunto);
 	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(10,-25,10);
+		glRotatef(90,1,0,0);
+		glScalef(1,5,1);
+		canionI.draw(gltype,tamPunto);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(-10,-25,10	);
+		glRotatef(90,1,0,0);
+		glScalef(1,5,1);
+		canionD.draw(gltype,tamPunto);
+	glPopMatrix();
 
+
+}
+
+void Cabina::setTraslacionRayo(float t){
+	rayoI.setTraslacion(t);
+	rayoD.setTraslacion(t);
+}
+
+void Cabina::disparar(int gltype,float tamPunto){
+	/**
+	Pintamos el disparo
+	A medidad que se aleja, se alarga el laser
+	*/
+	float traslacionZ = rayoI.getTraslacion();
+	glPushMatrix();
+	glScalef(1,1,traslacionZ*0.8);
+	glTranslatef(10,-25,traslacionZ);
+	glRotatef(90,1,0,0);
+	rayoI.draw(gltype,tamPunto);
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(1,1,traslacionZ*0.8);
+	glTranslatef(-10,-25,traslacionZ);
+	glRotatef(90,1,0,0);
+	rayoD.draw(gltype,tamPunto);
+	glPopMatrix();
 }

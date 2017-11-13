@@ -5,9 +5,14 @@
 
 class Rayo : public Perfil
 {
+private:
+	float traslacionZ;
+	float velocidad;
 public:
 	Rayo();
 	void pintar(int glType, float lado);
+	void setTraslacion(float t);
+	float getTraslacion();
 };
 
 #endif
