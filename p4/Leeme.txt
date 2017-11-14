@@ -1,0 +1,67 @@
+Rafael Lachica Garrido
+
+Practica 3
+
+Clases:
+
+- CazaTie: será nuestro modelo jerárquico dentro estarán
+	- Cabina: compuesta por:
+		- Nave: Objeto Ply que es una esfera
+		- Cabina: semiesfera de 8 lados generada por revolución
+		- Caniones: canion izda y canion dcha, cilindros generados por revolución.
+		- Rayos: rayoIda y rayoDcha, cilindros generados por revolución. No aparecen hasta que no se 
+		inicia la animación o no se pulsa la tecla de disparo, en mi caso la barra espaciadora.
+		Cuando salen de la escena, para simular que vuelve a disparar el rayo, los vuelvo a ubicar en la posición 10 sobre el ejeZ.
+
+	- Alas: otro submodelo jerárquico. Cada ala esta compuesta por:
+		- Hexágono: figura, Objeto3D, hexágono plano, no tiene coordenadas sobre el eje z.
+		Además tiene un hexágono interior contenido, para simular las alas del caza, las líneas interiores.
+		- Brazos: brazoI, brazoD, cilindros generados por revolución.
+		- Bases de las alas: figura generada por revolución.
+
+---------------
+---------------
+
+Teclas y funcionamiento:
+
+Teclas:
+	1: Activar cubo
+	2: Activar tetraedro
+	3: Activar piramide
+	4: Activar ObjetoPLY
+	5: Activar Objeto por revolución
+	6: Activar Modelo Jerarquico
+
+	a: ajedrez
+	l: lineas
+	p: puntos
+	f: solido/triangulos
+
+	==
+	Animaciones:
+	<: activar/desactivar animación
+	Z/z: aumentar/reducir giro sobre el primer grado de libertad
+	X/x: aumentar/reducir giro sobre el segundo grado de libertad
+	C/c: aumentar/reducir giro sobre el tercer grado de libertad
+
+	Barra espaciadora: disparar
+
+	NOTA: algunos giros tienen topes, cuando la animación está desactivada. Por ejemplo, las alas no giran más de 35 45 grados según que casos.
+
+	B/b: aumentar/reducir velocidad sobre el giro del primer grado
+	N/n: aumentar/reducir velocidad sobre el giro del segundo grado
+	M/m: aumentar/reducir velocidad sobre el giro del tercer grado
+
+	SI LA ANIMACIÓN ESTÁ ACTIVADA, DISPARA DE FORMA AUTOMÁTICA
+---------------
+---------------
+Animaciones/Rotaciones
+
+Para las animaciones he creado una serie de variables, para almacenar la velocidad, y los grados de rotación.
+Para las rotaciones, activo desactivo variables ejeX,ejeY,ejeZ, según que teclas se pulsen para el 1,2,o 3 grado de libertad, así le paso al objeto por ejemplo ALAS glRotatef(grados,ejeX,ejeY,ejeZ)
+
+Los grados se suman o se reducen pulsanod Z,X,C, cuando las animaciones están desactivadas.
+
+Las rotaciones es producen sobre todo el submodelo jerárquico ALAS, que se rota sobre el ejeX,ejeY,ejeZ
+He añadido la traslación, que será el disparo del rayo rojo.
+
