@@ -1,62 +1,62 @@
 Rafael Lachica Garrido
 
-Practica 2
+Practica 3
 
 Clases:
 
-- ObjetoPLY
+- CazaTie: será nuestro modelo jerárquico dentro estarán
+	- Cabina: compuesta por:
+		- Nave: Objeto Ply que es una esfera
+		- Cabina: semiesfera de 8 lados generada por revolución
+		- Caniones: canion izda y canion dcha, cilindros generados por revolución.
+		- Rayos: rayoIda y rayoDcha, cilindros generados por revolución. No aparecen hasta que no se 
+		inicia la animación o no se pulsa la tecla de disparo, en mi caso la barra espaciadora.
+		Cuando salen de la escena, para simular que vuelve a disparar el rayo, los vuelvo a ubicar en la posición 10 sobre el ejeZ.
 
-- Perfil: clase con la que haremos las revoluciones
+	- Alas: otro submodelo jerárquico. Cada ala esta compuesta por:
+		- Hexágono: figura, Objeto3D, hexágono plano, no tiene coordenadas sobre el eje z.
+		Además tiene un hexágono interior contenido, para simular las alas del caza, las líneas interiores.
+		- Brazos: brazoI, brazoD, cilindros generados por revolución.
+		- Bases de las alas: figura generada por revolución.
 
-Mi clase Perfil, está peparada tanto para construir objetos a partir de un ply, o a partir de parámetros. Por comodidad de no tener
-que construir un vector de vertices y pasarlo,leo un
-ply y le paso por parametros vertices,grados,divisiones. También se le puede pasar el archivo ply, grados y el número de divisiones.
+---------------
+---------------
 
-El sólido por barrido se construye a partir de un Perfil, ya que tal y como lo he entendido pienso que también es un perfil que hay que
-ir generando los demás puntos.
-
-
-NOTAS
-
-Al iniciar el programa p2, nos pedirá el tamaño de las aristas de las figuras de la práctica 1(no se ha borrado), y el nombre
-del archivo ply. He añadido por comodidad un directorio ply con algunos archivos de prueba ligeros. Los nombres de los archivos se deben introducir tal cual,
-sin /ply/..., Simplemente el nombre del ply deseado seguido de .ply.
-
-Saber si un objeto tiene tapas, recae en un método de la clase Figura. Tal y como lo he hecho, leo un ply, compruebo si tiene tapas,
-y si lo tiene, creo un objeto perfil (el constructor directamente revoluciona y pone las tapas por defecto. Número de divisiones 18 por defecto).
-
--------
--------
+Teclas y funcionamiento:
 
 Teclas:
+	1: Activar cubo
+	2: Activar tetraedro
+	3: Activar piramide
+	4: Activar ObjetoPLY
+	5: Activar Objeto por revolución
+	6: Activar Modelo Jerarquico
 
-- 1: Solido por barrido // Lo he sustituido por el cubo esa tecla
+	==
+	Animaciones:
+	<: activar/desactivar animación
+	Z/z: aumentar/reducir giro sobre el primer grado de libertad
+	X/x: aumentar/reducir giro sobre el segundo grado de libertad
+	C/c: aumentar/reducir giro sobre el tercer grado de libertad
 
-- 2: tetraedro
+	Barra espaciadora: disparar
 
-- 3: piramide
+	NOTA: algunos giros tienen topes, cuando la animación está desactivada. Por ejemplo, las alas no giran más de 35 45 grados según que casos.
 
-- 4: ply
+	B/b: aumentar/reducir velocidad sobre el giro del primer grado
+	N/n: aumentar/reducir velocidad sobre el giro del segundo grado
+	M/m: aumentar/reducir velocidad sobre el giro del tercer grado
 
-- 5: objeto por revolucion
+	SI LA ANIMACIÓN ESTÁ ACTIVADA, DISPARA DE FORMA AUTOMÁTICA
+---------------
+---------------
+Animaciones/Rotaciones
 
-- 6: objeto por revolucion sin tapas
+Para las animaciones he creado una serie de variables, para almacenar la velocidad, y los grados de rotación.
+Para las rotaciones, activo desactivo variables ejeX,ejeY,ejeZ, según que teclas se pulsen para el 1,2,o 3 grado de libertad, así le paso al objeto por ejemplo ALAS glRotatef(grados,ejeX,ejeY,ejeZ)
 
-- 7: objeto por revolucion sin tapa de arriba
+Los grados se suman o se reducen pulsanod Z,X,C, cuando las animaciones están desactivadas.
 
-- 8: objeto por revolucion sin tapa de abajo
+Las rotaciones es producen sobre todo el submodelo jerárquico ALAS, que se rota sobre el ejeX,ejeY,ejeZ
+He añadido la traslación, que será el disparo del rayo rojo.
 
-- 9: solo revolucionamos y pintamos las tapas
-
-- 0: objeto por revolcion dinámico en tiempo de ejecucion. Hay que pasarle el numero de grados y numero de divisiones  a revolucionar.
-
-
-Modo de visualización:
-
-- Triángulos: letra T
-
-- Puntos: letra P
-
-- Líneas: letra L
-
-- Ajedrez: letra A

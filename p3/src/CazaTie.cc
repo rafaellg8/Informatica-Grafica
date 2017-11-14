@@ -38,10 +38,10 @@ void CazaTie::obtenerExtremos(float ancho, float alto){
 }
 
 void CazaTie::mueveDisparo(){
-	traslacionZ+=0.5;
+	traslacionZ++;
 	traslacionZ = static_cast<int>((traslacionZ))%100; //Para simular un disparo, cuando desaparece, empieza desde la posicion inicial
 	if (traslacionZ==0)
-		traslacionZ=0;
+		traslacionZ=10;
 	cabina.setTraslacionRayo(traslacionZ);
 }
 
@@ -178,8 +178,8 @@ void CazaTie::animarte(){
 		grados+=velocidadZ;
 	}
 	if (traslacionZ<100)
-		traslacionZ+=0.5;
-		else traslacionZ=0; //Cuando llega a 100 vuelve a empezar
+		traslacionZ++;
+		else traslacionZ=10; //Cuando llega a 100 vuelve a empezar
 
 	mueveDisparo();
 }
