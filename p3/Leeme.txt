@@ -32,6 +32,11 @@ Teclas:
 	5: Activar Objeto por revolución
 	6: Activar Modelo Jerarquico
 
+	a: ajedrez
+	l: lineas
+	p: puntos
+	f: solido/triangulos
+
 	==
 	Animaciones:
 	<: activar/desactivar animación

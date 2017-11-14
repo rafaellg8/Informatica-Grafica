@@ -134,7 +134,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 gltype = 1;
                 return 0;
                 break;
-        case 'T':
+        case 'F':
                 gltype = 2;
                 return 0;
                 break;
