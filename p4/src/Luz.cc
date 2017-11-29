@@ -13,19 +13,13 @@ Luz::Luz(){
 	color.y =1;
 	color.z =0; //Por defecto amarillo
 	color[4]=0;
-	posicion(0,100,100); //Posicion por defecto
+	posicion(0,0,0,1.0); //Posicion por defecto
 
-	esfera = ObjetoPLY("ply/sphere.ply");
+	
 
 	enable = false;
-
-	//Invertimos las normales de la esfera
-	for (int i=0;i<esfera.normales.size();i++){
-		esfera.normales[i].x*=-1;
-		esfera.normales[i].y*=-1;
-		esfera.normales[i].z*=-1;
-		glNormal3f(esfera.normales[i].x,esfera.normales[i].y,esfera.normales[i].z);
-	}
+	creaEsfera();
+	
 	// inicializarLuces();
 	// posicionarLuces();
 	//Posicionamos la esfera justo donde está la luz
@@ -64,11 +58,11 @@ void Luz::setEnable(){
 void Luz::inicializarLuces(){
 	 glEnable(GL_LIGHTING);
     const float
-         caf[4] = { 0.0, 0.0, 1.0, 1.0 }, 
+         caf[4] = { 1.0, 0.0, 0.0, 1.0 }, 
          // color ambiental de la fuente 
          cdf[4] = { 0.2, 0.2, 0.2, 1.0 }, //
          //color difuso de la fuente 
-         csf[4] = { 1, 1, 0, 1.0 }; 
+         csf[4] = { 0, 0.0, 1.0, 1.0 }; 
          //color especular de la fuente 
          glLightfv( GL_LIGHT0, GL_AMBIENT, caf ) ; //
          //hace SiA := (ra, ga, ba) 
@@ -80,13 +74,52 @@ void Luz::inicializarLuces(){
 }
 
 void Luz::posicionarLuces(){
-
-	const GLfloat posf[4] = { 0, 1, 0, 1.0 } ;  // (x,y,z,w) 
+	glLightModeli( GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE ); //Si Proyeccion en perspectiva
+	const GLfloat posf[4] = { 0, 0, 0, 1.0 } ;  // (x,y,z,w) 
 	// glLightfv( GL_LIGHT0, GL_POSITION, posf ); 
-	const GLfloat dirf[4] = { 0, 10, 10, 0.0 } ; // (x,y,z,w) 
+	const GLfloat dirf[4] = { 0, 0, 0, 0.0 } ; // (x,y,z,w) 
     glLightfv(GL_LIGHT0,GL_POSITION,dirf);
+    posicion(0,0,0);
 }
 
-void Luz::draw(){
-	esfera.draw(1,4.5);
+void Luz::pintar(int glType, float lado){
+	if (esfera.getVertices().size()>0 && esfera.getCaras().size()>0){
+		glPushMatrix();
+		glScalef(100,100,100);
+		glTranslatef(0,0,0);
+			esfera.draw(glType,lado);
+		glPopMatrix();
+	}
+}
+
+vector<_vertex3f> Luz::getEsferaVertices(){
+	return esfera.getVertices();
+}
+
+void Luz::creaEsfera(){
+	cout<<"\nCreando la esfera "<<endl;
+	esfera = ObjetoPLY("ply/sphere.ply");
+	//Invertimos las normales de la esfera
+	for (int i=0;i<esfera.normales.size();i++){
+		esfera.normales[i].x*=-1;
+		esfera.normales[i].y*=-1;
+		esfera.normales[i].z*=-1;
+		glNormal3f(esfera.normales[i].x,esfera.normales[i].y,esfera.normales[i].z);
+	}
+	esfera.setColores(0,0,0);
+}
+
+void Luz::moverAdelante(){
+	posicion.z +=10;
+	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0};
+	glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	cout<<posicion.z<<endl;
+}
+
+void Luz::moverAtras(){
+	posicion.z -=10;
+	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0};
+	glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	cout<<posicion.z<<endl;
+
 }

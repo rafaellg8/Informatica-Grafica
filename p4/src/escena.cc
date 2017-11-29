@@ -19,13 +19,13 @@
 #include "Perfil.h"
 
 #include "CazaTie.h"
+#include "Luz.h"
 
 int transformacion=0;
 
-// Perfil perfil;
-ObjetoPLY perfil;
+Perfil perfil;
 CazaTie caza;
-Luz luz;        
+Luz luz;
 Escena::Escena(){
         Front_plane=200;
         Back_plane=2000;
@@ -62,14 +62,11 @@ Escena::Escena(){
         ObjetoPLY objPly("ply/"+inputFile);
         figuras.push_back(objPly); //SI tiene tapas no revolucionamos
 
-        //ÑAPA
-        objPly = ObjetoPLY("ply/perfil.ply"); 
-        // objPly = ObjetoPLY("ply/peon.ply");
+        objPly = ObjetoPLY("ply/perfil.ply");
 
         if (objPly.tieneTapas()==false) {
-                 cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
-                // perfil=Perfil(objPly.getVertices(),18);
-                perfil=ObjetoPLY("ply/peon.ply");
+                cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
+                perfil=Perfil(objPly.getVertices(),18);
                 // perfil = Perfil("ply/perfil.ply");
                 figuras.push_back(perfil);
         }
@@ -81,7 +78,6 @@ Escena::Escena(){
         // Perfil barrido(trayectoria,100.5,true); //Trayectoria, distancia de barrido
 
         figuraActual = 0; //Por defecto la figura que se pinta será la primera
-
 }
 
 void Escena::inicializar(int UI_window_width,int UI_window_height) {
@@ -94,10 +90,6 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
         Width=UI_window_width/10;
         Height=UI_window_height/10;
         glViewport(0,0,UI_window_width,UI_window_height);
-
-        /********************
-        Luces
-        ********************/
         luces();
 }
 
@@ -109,9 +101,21 @@ void Escena::draw_objects() {
         // Cubo cubo;
         if (figuraActual==5){
             caza.pintar(gltype,4.5);
+            if (esferaIlu){
+            // glPushMatrix();
+            //     glTranslatef(0,100,100);
+            //     luces();
+            //     glPushMatrix();
+            //     glScalef(0.05,0.05,0.05);
+            //     esfera.draw(gltype,4.5);
+            //     glPopMatrix();
+            // glPopMatrix();
+            luz.pintar(gltype,4.5);
         }
-        else
+        }
+        else{
             figuras[figuraActual].draw(gltype,4.5);
+        }
 }
 
 
@@ -182,7 +186,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         case '5':
                 cout<<"\nPintando revolucion completa"<<endl;
                 figuraActual = 4;
-                // perfil.pinta(true,true,true); ÑAPA
+                perfil.pinta(true,true,true);
                 figuras[4]=perfil; //Perfil actualizado
                 change_projection();
                 return 0;
@@ -199,7 +203,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 int divi;         //Divisiones
                 cin>>divi;
                 figuraActual = 4;
-                // perfil = Perfil(perfil.getPerfil(),divi); ÑAPA
+                perfil = Perfil(perfil.getPerfil(),divi);
                 figuras[4]=perfil;
                 change_projection();
                 return 0;
@@ -208,9 +212,19 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         //Iluminacion
         case 'I':
                 luz.setEnable();
+                esferaIlu=!esferaIlu; //Cambiamos la iluminacion la esfera
+                return 0;
+                break;
+        //Sombreado plano
+        case 'S':
+                this->setShading();
+                 if (shadingSmooth)
+                    glShadeModel(GL_SMOOTH);
+                else glShadeModel(GL_FLAT);
                 return 0;
                 break;
         }
+
         switch(Tecla1){
         //Grados de libertad
         case 32: //Espacio
@@ -304,6 +318,8 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
         case GLUT_KEY_DOWN: Observer_angle_x++; break;
         case GLUT_KEY_PAGE_UP: Observer_distance*=1.2; break;
         case GLUT_KEY_PAGE_DOWN: Observer_distance/=1.2; break;
+        case GLUT_KEY_F1: luz.moverAdelante();break;
+        case GLUT_KEY_F2: luz.moverAtras();break;
         }
 
         std::cout << Observer_distance << std::endl;
@@ -369,23 +385,10 @@ void Escena::draw_axis()
 }
 
 void Escena::luces(){
-    // glEnable(GL_LIGHTING);
-    // const float
-    //      caf[4] = { 0.0, 0.0, 1.0, 1.0 }, 
-    //      // color ambiental de la fuente 
-    //      cdf[4] = { 0.2, 0.2, 0.2, 1.0 }, //
-    //      //color difuso de la fuente 
-    //      csf[4] = { 1, 1, 0, 1.0 }; 
-    //      //color especular de la fuente 
-    //      glLightfv( GL_LIGHT0, GL_AMBIENT, caf ) ; //
-    //      //hace SiA := (ra, ga, ba) 
-    //      glLightfv( GL_LIGHT1, GL_DIFFUSE, cdf ) ; //
-    //      //hace SiD := (rd, gd, bd) 
-    //      glLightfv( GL_LIGHT2, GL_SPECULAR, csf ) ; //
-    //      // hace SiS := (rs, gs, bs) 
-         // glEnable(GL_LIGHT0);
-         
-         luz.inicializarLuces();
          luz.posicionarLuces();
-         luz.draw();
+         luz.inicializarLuces();
+}
+
+void Escena::setShading(){ //Cambiamos el estado del shading
+    shadingSmooth = !shadingSmooth;
 }

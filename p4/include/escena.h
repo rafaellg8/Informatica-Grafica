@@ -6,7 +6,6 @@
 #include "cubo.h"
 #include "tetraedro.h"
 #include "piramide.h"
-#include "Luz.h"
 
 #include <vector>
 
@@ -18,7 +17,6 @@ Ejes ejes;
 
 //Vector de figuras en la escena
 vector<Figura> figuras;
-Luz luzPos;
 
 // variables que definen la posicion de la camara en coordenadas polares
 GLfloat Observer_distance;
@@ -29,8 +27,10 @@ int gltype; //0 puntos, 1 lineas, 2 solido, 3 ajedrez
 GLfloat Width,Height,Front_plane,Back_plane;
 
 int figuraActual = 0; //figura actual que se va a pintar
+bool shadingSmooth = false; //Sombreado por defecto a false, será el plano
 
 private:
+	bool esferaIlu=false; //Esfera de la iluminacion
 	void clear_window();
 	void draw_axis();
 	void draw_objects();
@@ -55,5 +55,6 @@ public:
 	void setTipo(int tipo);
 
 	void luces();
+	void setShading();
 };
 #endif

@@ -25,7 +25,13 @@ public:
 
 	void inicializarLuces();
 	void posicionarLuces();
-	void draw();
+	void pintar(int glType, float lado);
+	vector<_vertex3f> getEsferaVertices();
+
+	void creaEsfera();
+
+	void moverAdelante();
+	void moverAtras();
 };
 
 #endif
