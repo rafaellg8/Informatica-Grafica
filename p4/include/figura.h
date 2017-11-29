@@ -10,7 +10,7 @@
 
 class Figura {
 private:
-std::vector<_vertex3f> normales;
+
 std::vector<_vertex3f> centroCaras; //Centro de cada cara
 std::vector<float> tablaVertices;  //Correspondencia vertices y caras
 std::vector<int> tablaCaras;  //Correspondencia vertices y caras
@@ -35,6 +35,7 @@ float altoMin;
 protected:
 std::vector<_vertex3f> vertices;
 std::vector<_vertex3i> caras;
+
 /**
    Funcion para insertar los vertices y caras
  */
@@ -104,6 +105,7 @@ Tabla de Triangulos, con las caras. Tabla de normales
 */
 void creaTabla();
 
+std::vector<_vertex3f> normales;
 };
 
 #endif

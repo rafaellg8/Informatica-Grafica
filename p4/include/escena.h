@@ -6,7 +6,7 @@
 #include "cubo.h"
 #include "tetraedro.h"
 #include "piramide.h"
-
+#include "Luz.h"
 
 #include <vector>
 
@@ -18,6 +18,7 @@ Ejes ejes;
 
 //Vector de figuras en la escena
 vector<Figura> figuras;
+Luz luzPos;
 
 // variables que definen la posicion de la camara en coordenadas polares
 GLfloat Observer_distance;
@@ -52,5 +53,7 @@ public:
 	int teclaPulsada(unsigned char Tecla1,int x,int y) ;
 	void teclaEspecial(int Tecla1,int x,int y);
 	void setTipo(int tipo);
+
+	void luces();
 };
 #endif

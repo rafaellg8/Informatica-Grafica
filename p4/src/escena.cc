@@ -22,9 +22,10 @@
 
 int transformacion=0;
 
-Perfil perfil;
+// Perfil perfil;
+ObjetoPLY perfil;
 CazaTie caza;
-
+Luz luz;        
 Escena::Escena(){
         Front_plane=200;
         Back_plane=2000;
@@ -61,11 +62,14 @@ Escena::Escena(){
         ObjetoPLY objPly("ply/"+inputFile);
         figuras.push_back(objPly); //SI tiene tapas no revolucionamos
 
-        objPly = ObjetoPLY("ply/perfil.ply");
+        //ÑAPA
+        objPly = ObjetoPLY("ply/perfil.ply"); 
+        // objPly = ObjetoPLY("ply/peon.ply");
 
         if (objPly.tieneTapas()==false) {
-                cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
-                perfil=Perfil(objPly.getVertices(),18);
+                 cout<<"\nNo tiene tapas --> revolucionamos"<<endl;
+                // perfil=Perfil(objPly.getVertices(),18);
+                perfil=ObjetoPLY("ply/peon.ply");
                 // perfil = Perfil("ply/perfil.ply");
                 figuras.push_back(perfil);
         }
@@ -91,6 +95,10 @@ void Escena::inicializar(int UI_window_width,int UI_window_height) {
         Height=UI_window_height/10;
         glViewport(0,0,UI_window_width,UI_window_height);
 
+        /********************
+        Luces
+        ********************/
+        luces();
 }
 
 
@@ -174,7 +182,7 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         case '5':
                 cout<<"\nPintando revolucion completa"<<endl;
                 figuraActual = 4;
-                perfil.pinta(true,true,true);
+                // perfil.pinta(true,true,true); ÑAPA
                 figuras[4]=perfil; //Perfil actualizado
                 change_projection();
                 return 0;
@@ -191,9 +199,15 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
                 int divi;         //Divisiones
                 cin>>divi;
                 figuraActual = 4;
-                perfil = Perfil(perfil.getPerfil(),divi);
+                // perfil = Perfil(perfil.getPerfil(),divi); ÑAPA
                 figuras[4]=perfil;
                 change_projection();
+                return 0;
+                break;
+
+        //Iluminacion
+        case 'I':
+                luz.setEnable();
                 return 0;
                 break;
         }
@@ -352,4 +366,26 @@ void Escena::change_observer() {
 void Escena::draw_axis()
 {
         ejes.draw();
+}
+
+void Escena::luces(){
+    // glEnable(GL_LIGHTING);
+    // const float
+    //      caf[4] = { 0.0, 0.0, 1.0, 1.0 }, 
+    //      // color ambiental de la fuente 
+    //      cdf[4] = { 0.2, 0.2, 0.2, 1.0 }, //
+    //      //color difuso de la fuente 
+    //      csf[4] = { 1, 1, 0, 1.0 }; 
+    //      //color especular de la fuente 
+    //      glLightfv( GL_LIGHT0, GL_AMBIENT, caf ) ; //
+    //      //hace SiA := (ra, ga, ba) 
+    //      glLightfv( GL_LIGHT1, GL_DIFFUSE, cdf ) ; //
+    //      //hace SiD := (rd, gd, bd) 
+    //      glLightfv( GL_LIGHT2, GL_SPECULAR, csf ) ; //
+    //      // hace SiS := (rs, gs, bs) 
+         // glEnable(GL_LIGHT0);
+         
+         luz.inicializarLuces();
+         luz.posicionarLuces();
+         luz.draw();
 }

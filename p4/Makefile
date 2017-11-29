@@ -37,7 +37,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o
+OBJECTS= $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/Luz.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o
 # orden que sera ejecutada por defecto
 #
 default : $(OBJ)/practica.o
@@ -47,10 +47,10 @@ default : $(OBJ)/practica.o
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica.o: $(OBJECTS)
-	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/escena.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) -o $(BIN)/practica $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/Luz.o $(OBJ)/escena.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
-$(OBJ)/escena.o: $(SRC)/escena.cc $(OBJ)/
-	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc  -o $(OBJ)/escena.o -I $(INC)
+$(OBJ)/escena.o: $(SRC)/escena.cc $(OBJ)/Luz.o
+	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc -o $(OBJ)/escena.o -I $(INC)
 
 $(OBJ)/ejes.o: $(SRC)/ejes.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/ejes.cc  -o $(OBJ)/ejes.o -I $(INC)
@@ -78,6 +78,9 @@ $(OBJ)/ObjetoPLY.o:
 
 $(OBJ)/Perfil.o: $(SRC)/Perfil.cc
 	$(CC) $(CXXFLAGS) -c $(SRC)/Perfil.cc  -o $(OBJ)/Perfil.o -I $(INC)
+
+$(OBJ)/Luz.o: $(SRC)/Luz.cc $(OBJ)/ObjetoPLY.o
+	$(CC) $(CXXFLAGS) -c $(SRC)/Luz.cc -o $(OBJ)/Luz.o -I $(INC)
 
 $(OBJ)/cabina.o: $(SRC)/cabina.cc $(OBJ)/Canion.o $(OBJ)/Rayo.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/cabina.cc  -o $(OBJ)/cabina.o -I $(INC)

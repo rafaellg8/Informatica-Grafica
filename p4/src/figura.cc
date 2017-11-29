@@ -8,6 +8,7 @@ Figura::Figura(){
 
 Figura::Figura(vector<_vertex3f> v, vector<_vertex3i> c){
         insertarDatos(v,c);
+        calcularNormales(); //Creamos las normales a las caras
 
 }
 
@@ -25,7 +26,6 @@ void Figura::insertarDatos(vector<_vertex3f> v, vector<_vertex3i> c){
         }
         creaTabla();
         extremosFigura();
-        //calcularNormales(); //Creamos las normales a las caras
 }
 
 void Figura::setVertices(vector<_vertex3f> v){
@@ -138,6 +138,7 @@ void Figura::calcularNormales(){
 
         vector<_vertex3f> vectorP,vectorQ;
 
+        if (vertices.size()>0 && caras.size()>0)
         for (int i=0; i<caras.size(); i++) {
                 float x = vertices[caras[i][1]].x - vertices[caras[i][0]].x;
                 float y = vertices[caras[i][1]].y - vertices[caras[i][0]].y;
@@ -168,6 +169,10 @@ void Figura::calcularNormales(){
                 //Metemos punto central en el vector
                 centroCaras.push_back({puntoX,puntoY,puntoZ});
         }
+         glEnable(GL_NORMALIZE);
+         glEnable(GL_RESCALE_NORMAL);
+         for (int i=0;i<normales.size();i++) //Añadimos el vector de normales
+            glNormal3f(normales[i].x,normales[i].y,normales[i].z);
 }
 
 void Figura::draw(int tipo, float tamanioPunto){
@@ -178,6 +183,7 @@ void Figura::draw(int tipo, float tamanioPunto){
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(3,GL_INT, 0, &colores[0]); //Establecemos el color
         glVertexPointer(3, GL_FLOAT, 0,  &vertices[0]);
+        glEnable(GL_NORMALIZE);
 
         switch (tipo) {
         case 0:
@@ -229,7 +235,7 @@ void Figura::solido(){
 
 void Figura::lineas(){
         if (tablaCaras.size()>0 && tablaVertices.size()>0) {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                glPolygonMode(GL_FRONT, GL_LINE);
                 glDrawElements(GL_TRIANGLES, tablaCaras.size(), GL_UNSIGNED_INT,&tablaCaras[0]);
         }
 }
