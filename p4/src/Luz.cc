@@ -14,16 +14,8 @@ Luz::Luz(){
 	color.z =0; //Por defecto amarillo
 	color[4]=0;
 	posicion(0,0,0,1.0); //Posicion por defecto
-
-	
-
 	enable = false;
-	creaEsfera();
-	
-	// inicializarLuces();
-	// posicionarLuces();
-	//Posicionamos la esfera justo donde está la luz
-
+	grados = 0; //Grados de rotacion
 }
 
 void Luz::setPosicion(_vertex4f posicion){
@@ -58,7 +50,7 @@ void Luz::setEnable(){
 void Luz::inicializarLuces(){
 	 glEnable(GL_LIGHTING);
     const float
-         caf[4] = { 1.0, 0.0, 0.0, 1.0 }, 
+         caf[4] = { 1.0, 0.0, 4.0, 1.0 }, 
          // color ambiental de la fuente 
          cdf[4] = { 0.2, 0.2, 0.2, 1.0 }, //
          //color difuso de la fuente 
@@ -82,36 +74,10 @@ void Luz::posicionarLuces(){
     posicion(0,0,0);
 }
 
-void Luz::pintar(int glType, float lado){
-	if (esfera.getVertices().size()>0 && esfera.getCaras().size()>0){
-		glPushMatrix();
-		glScalef(100,100,100);
-		glTranslatef(0,0,0);
-			esfera.draw(glType,lado);
-		glPopMatrix();
-	}
-}
-
-vector<_vertex3f> Luz::getEsferaVertices(){
-	return esfera.getVertices();
-}
-
-void Luz::creaEsfera(){
-	cout<<"\nCreando la esfera "<<endl;
-	esfera = ObjetoPLY("ply/sphere.ply");
-	//Invertimos las normales de la esfera
-	for (int i=0;i<esfera.normales.size();i++){
-		esfera.normales[i].x*=-1;
-		esfera.normales[i].y*=-1;
-		esfera.normales[i].z*=-1;
-		glNormal3f(esfera.normales[i].x,esfera.normales[i].y,esfera.normales[i].z);
-	}
-	esfera.setColores(0,0,0);
-}
 
 void Luz::moverAdelante(){
 	posicion.z +=10;
-	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0};
+	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0}; //Luz posicional w=1.0
 	glLightfv(GL_LIGHT0,GL_POSITION,pos);
 	cout<<posicion.z<<endl;
 }
@@ -122,4 +88,20 @@ void Luz::moverAtras(){
 	glLightfv(GL_LIGHT0,GL_POSITION,pos);
 	cout<<posicion.z<<endl;
 
+}
+
+void Luz::upRotate(){
+	grados+=5;
+}
+
+void Luz::downRotate(){
+	grados-=5;
+}
+
+void Luz::girar(){
+	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,posicion.w};
+	glPushMatrix();
+		glRotatef(grados,0,1,0);
+		glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	glPopMatrix();
 }

@@ -4,15 +4,14 @@
 #include <vector>
 #include "vertex.h"
 #include "figura.h"
-#include "ObjetoPLY.h"
 
 class Luz
 {
 private:
 	_vertex4f posicion;
+	float grados=0; //Grados de rotacion
 	_vertex4f color;
 	bool enable;
-	ObjetoPLY esfera;
 
 
 public:
@@ -25,13 +24,11 @@ public:
 
 	void inicializarLuces();
 	void posicionarLuces();
-	void pintar(int glType, float lado);
-	vector<_vertex3f> getEsferaVertices();
-
-	void creaEsfera();
-
 	void moverAdelante();
 	void moverAtras();
+	void girar();
+	void upRotate();
+	void downRotate();
 };
 
 #endif

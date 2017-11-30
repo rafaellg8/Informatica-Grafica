@@ -102,16 +102,8 @@ void Escena::draw_objects() {
         if (figuraActual==5){
             caza.pintar(gltype,4.5);
             if (esferaIlu){
-            // glPushMatrix();
-            //     glTranslatef(0,100,100);
-            //     luces();
-            //     glPushMatrix();
-            //     glScalef(0.05,0.05,0.05);
-            //     esfera.draw(gltype,4.5);
-            //     glPopMatrix();
-            // glPopMatrix();
-            luz.pintar(gltype,4.5);
-        }
+                //pintamos la esfera con su luz
+            }
         }
         else{
             figuras[figuraActual].draw(gltype,4.5);
@@ -319,7 +311,9 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
         case GLUT_KEY_PAGE_UP: Observer_distance*=1.2; break;
         case GLUT_KEY_PAGE_DOWN: Observer_distance/=1.2; break;
         case GLUT_KEY_F1: luz.moverAdelante();break;
-        case GLUT_KEY_F2: luz.moverAtras();break;
+        case GLUT_KEY_F2: luz.moverAtras();luz.girar();break;
+        case GLUT_KEY_F3: luz.upRotate();luz.girar();break;
+        case GLUT_KEY_F4: luz.downRotate();break;
         }
 
         std::cout << Observer_distance << std::endl;
