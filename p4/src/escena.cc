@@ -20,12 +20,14 @@
 
 #include "CazaTie.h"
 #include "Luz.h"
+#include "Direccional.h"
 
 int transformacion=0;
 
 Perfil perfil;
 CazaTie caza;
 Luz luz;
+Direccional luzDir;
 Escena::Escena(){
         Front_plane=200;
         Back_plane=2000;
@@ -204,6 +206,9 @@ int Escena::teclaPulsada(unsigned char Tecla1,int x,int y) {
         //Iluminacion
         case 'I':
                 luz.setEnable();
+                luzDir.setEnable();
+                glEnable(GL_LIGHT0);
+                glEnable(GL_LIGHT1);
                 esferaIlu=!esferaIlu; //Cambiamos la iluminacion la esfera
                 return 0;
                 break;
@@ -312,8 +317,8 @@ void Escena::teclaEspecial(int Tecla1,int x,int y) {
         case GLUT_KEY_PAGE_DOWN: Observer_distance/=1.2; break;
         case GLUT_KEY_F1: luz.moverAdelante();break;
         case GLUT_KEY_F2: luz.moverAtras();luz.girar();break;
-        case GLUT_KEY_F3: luz.upRotate();luz.girar();break;
-        case GLUT_KEY_F4: luz.downRotate();break;
+        case GLUT_KEY_F3: luzDir.upRotate();luzDir.girar();break;
+        case GLUT_KEY_F4: luzDir.downRotate();luzDir.girar();break;
         }
 
         std::cout << Observer_distance << std::endl;
@@ -379,6 +384,8 @@ void Escena::draw_axis()
 }
 
 void Escena::luces(){
+         luzDir.posicionarLuces();
+         luzDir.inicializarLuces();
          luz.posicionarLuces();
          luz.inicializarLuces();
 }

@@ -7,13 +7,13 @@
 
 class Luz
 {
-private:
+protected:
 	_vertex4f posicion;
 	float grados=0; //Grados de rotacion
 	_vertex4f color;
 	bool enable;
-
-
+private:
+	void lightFV();
 public:
 	Luz();
 	_vertex4f getPosicion();

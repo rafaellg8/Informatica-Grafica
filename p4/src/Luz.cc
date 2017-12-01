@@ -9,11 +9,11 @@
 #endif
 
 Luz::Luz(){
-	color.x =1;
-	color.y =1;
-	color.z =0; //Por defecto amarillo
+	color.x =0.5;
+	color.y =0.5;
+	color.z =0.5; //Por defecto amarillo
 	color[4]=0;
-	posicion(0,0,0,1.0); //Posicion por defecto
+	posicion(0,100,0,1.0); //Posicion por defecto
 	enable = false;
 	grados = 0; //Grados de rotacion
 }
@@ -48,46 +48,37 @@ void Luz::setEnable(){
 }
 
 void Luz::inicializarLuces(){
-	 glEnable(GL_LIGHTING);
-    const float
-         caf[4] = { 1.0, 0.0, 4.0, 1.0 }, 
-         // color ambiental de la fuente 
-         cdf[4] = { 0.2, 0.2, 0.2, 1.0 }, //
-         //color difuso de la fuente 
-         csf[4] = { 0, 0.0, 1.0, 1.0 }; 
-         //color especular de la fuente 
-         glLightfv( GL_LIGHT0, GL_AMBIENT, caf ) ; //
-         //hace SiA := (ra, ga, ba) 
-         glLightfv( GL_LIGHT1, GL_DIFFUSE, cdf ) ; //
-         //hace SiD := (rd, gd, bd) 
-         glLightfv( GL_LIGHT2, GL_SPECULAR, csf ) ; //
-         // hace SiS := (rs, gs, bs) 
-         glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
+    const GLfloat light_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f }; 
+    const GLfloat light_diffuse[] = { color.x, color.y, color.z, 1.0f };
+    const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient); 
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse); 
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular); 
+
+	
+	glEnable(GL_LIGHT0);
 }
 
 void Luz::posicionarLuces(){
 	glLightModeli( GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE ); //Si Proyeccion en perspectiva
-	const GLfloat posf[4] = { 0, 0, 0, 1.0 } ;  // (x,y,z,w) 
+	const GLfloat posf[4] = { posicion.x, posicion.y, posicion.z, 1.0 } ;  // (x,y,z,w) 
 	// glLightfv( GL_LIGHT0, GL_POSITION, posf ); 
-	const GLfloat dirf[4] = { 0, 0, 0, 0.0 } ; // (x,y,z,w) 
-    glLightfv(GL_LIGHT0,GL_POSITION,dirf);
-    posicion(0,0,0);
+    glLightfv(GL_LIGHT0,GL_POSITION,posf);
 }
 
 
 void Luz::moverAdelante(){
 	posicion.z +=10;
-	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0}; //Luz posicional w=1.0
-	glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	lightFV();
 	cout<<posicion.z<<endl;
 }
 
 void Luz::moverAtras(){
 	posicion.z -=10;
-	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0};
-	glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	lightFV();
 	cout<<posicion.z<<endl;
-
 }
 
 void Luz::upRotate(){
@@ -99,9 +90,13 @@ void Luz::downRotate(){
 }
 
 void Luz::girar(){
-	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,posicion.w};
 	glPushMatrix();
 		glRotatef(grados,0,1,0);
-		glLightfv(GL_LIGHT0,GL_POSITION,pos);
+		this->lightFV();
 	glPopMatrix();
+}
+
+void Luz::lightFV(){
+	const GLfloat pos[4]={posicion.x,posicion.y,posicion.z,1.0}; //Luz posicional w=1.0
+	glLightfv(GL_LIGHT0,GL_POSITION,pos);
 }
