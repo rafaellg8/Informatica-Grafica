@@ -1,11 +1,11 @@
 #include "Direccional.h"
 
 Direccional::Direccional(){
-	color.x =10;
+	color.x =15;
 	color.y =0;
 	color.z =0; //Por defecto amarillo
 	color[4]=0;
-	posicion(5,0,0,1.0); //Posicion direccional
+	posicion(0,100,100,1.0); //Posicion direccional
 	enable = false;
 	grados = 0; //Grados de rotacion
 }
@@ -49,6 +49,7 @@ void Direccional::lightFV(){
 
 void Direccional::girar(){
 	glPushMatrix();
+		cout<<"\nGirando "<<this->grados<<" grados"<<endl;
 		glRotatef(grados,0,1,0);
 		this->lightFV();
 	glPopMatrix();

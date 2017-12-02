@@ -6,6 +6,7 @@
 #include "cubo.h"
 #include "tetraedro.h"
 #include "piramide.h"
+#include "ObjetoPLY.h"
 
 #include <vector>
 
@@ -56,5 +57,7 @@ public:
 
 	void luces();
 	void setShading();
+
+	void esferaLuzDraw();
 };
 #endif

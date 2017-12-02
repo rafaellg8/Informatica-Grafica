@@ -18,6 +18,7 @@ Cabina::Cabina(){
 
 void Cabina::pintar(int gltype, float tamPunto){
 	glPushMatrix();
+		nave.setMaterialGris();
 		glScalef(0.22,0.22,0.22);
 		nave.draw(gltype,tamPunto);
 	glPopMatrix();
@@ -26,6 +27,7 @@ void Cabina::pintar(int gltype, float tamPunto){
 		glScalef(8,8,1.0);
 		glRotatef(90,1,0,0);
 		glRotatef(180,0,1,0);
+		cabina.setMaterialNegro();
 		cabina.draw(gltype,tamPunto);
 	glPopMatrix();
 	glPushMatrix();

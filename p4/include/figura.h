@@ -42,6 +42,7 @@ std::vector<_vertex3i> caras;
 void insertarDatos(vector<_vertex3f> v,vector<_vertex3i> c);
 
 public:
+std::vector<_vertex3f> normales;
 //Constructor
 Figura();
 /**
@@ -105,7 +106,14 @@ Tabla de Triangulos, con las caras. Tabla de normales
 */
 void creaTabla();
 
-std::vector<_vertex3f> normales;
+/**
+Materiales
+*/
+void setMaterialNegro();
+
+void setMaterialGris();
+
+void setMaterialReflejos();
 };
 
 #endif

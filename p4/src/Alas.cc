@@ -61,6 +61,8 @@ void Alas::pintarBases(int glType,float tamPunto){
 }
 
 void Alas::pintarHexagonos(int glType,float tamPunto){
+	hexagonoIzquierdo.setMaterialReflejos();
+	hexagonoDerecho.setMaterialReflejos();
 	glPushMatrix();
 		glScalef(8,8,8);
 			glPushMatrix();

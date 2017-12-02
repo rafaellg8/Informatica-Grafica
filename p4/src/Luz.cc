@@ -11,7 +11,7 @@
 Luz::Luz(){
 	color.x =0.5;
 	color.y =0.5;
-	color.z =0.5; //Por defecto amarillo
+	color.z =0.5; //Por defecto gris
 	color[4]=0;
 	posicion(0,100,0,1.0); //Posicion por defecto
 	enable = false;
@@ -51,7 +51,7 @@ void Luz::inicializarLuces(){
 	glEnable(GL_LIGHTING);
     const GLfloat light_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f }; 
     const GLfloat light_diffuse[] = { color.x, color.y, color.z, 1.0f };
-    const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    const GLfloat light_specular[] = { color.x, color.y, color.z, 1.0f };
     
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient); 
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse); 
@@ -83,10 +83,14 @@ void Luz::moverAtras(){
 
 void Luz::upRotate(){
 	grados+=5;
+	if (grados==360)
+		grados=0;
 }
 
 void Luz::downRotate(){
 	grados-=5;
+	if (grados==-360)
+		grados=0;
 }
 
 void Luz::girar(){

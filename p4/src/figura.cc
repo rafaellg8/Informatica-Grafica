@@ -312,3 +312,48 @@ void Figura::creaTabla(){
                 tablaNormales.push_back(normales[i].z);
         }
 }
+
+/**
+Materiales
+*/
+void Figura::setMaterialNegro(){
+    glMaterialf(GL_FRONT_AND_BACK,GL_EMISSION,1.0f);
+
+    GLfloat colorAmbiente[]={0.0,0.0,0.0,1.0};
+    GLfloat colorDifuso[]={0.0,0.0,0.0,1.0}; //Negro
+    GLfloat colorEspecular[]={1.0,1.0,1.0,1.0};
+    const GLfloat high_shininess[] = { 10.0f };
+
+    glMaterialfv(GL_FRONT,GL_AMBIENT,colorAmbiente);
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,colorDifuso);
+    glMaterialfv(GL_FRONT,GL_SPECULAR,colorEspecular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+}
+
+void Figura::setMaterialGris(){
+    glMaterialf(GL_FRONT_AND_BACK,GL_EMISSION,1.0f);
+
+    GLfloat colorAmbiente[]={0.0,0.0,0.0,1.0};
+    GLfloat colorDifuso[]={0.5,0.5,0.5,1.0}; //Negro
+    GLfloat colorEspecular[]={0.5,0.5,0.5,1.0};
+    const GLfloat high_shininess[] = { 1.0f };
+
+    glMaterialfv(GL_FRONT,GL_AMBIENT,colorAmbiente);
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,colorDifuso);
+    glMaterialfv(GL_FRONT,GL_SPECULAR,colorEspecular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+}
+
+void Figura::setMaterialReflejos(){
+    glMaterialf(GL_FRONT,GL_EMISSION,1.0f);
+
+   GLfloat colorAmbiente[] = {0.0, 0.0, 0.0, 1.0};
+  GLfloat colorDifuso[] = {0.9, 0.9, 0.9, 1.0}; //Reflejos blancos
+  GLfloat colorEspecular[]={1,1,1,1};
+    const GLfloat high_shininess[] = { 100.0f };
+
+    glMaterialfv(GL_FRONT,GL_AMBIENT,colorAmbiente);
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,colorDifuso);
+    glMaterialfv(GL_FRONT,GL_SPECULAR,colorEspecular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+}
