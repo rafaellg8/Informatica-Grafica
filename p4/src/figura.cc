@@ -173,6 +173,30 @@ void Figura::calcularNormales(){
          glEnable(GL_RESCALE_NORMAL);
          for (int i=0;i<normales.size();i++) //Añadimos el vector de normales
             glNormal3f(normales[i].x,normales[i].y,normales[i].z);
+
+        calcularNorVertices();
+}
+
+void Figura::calcularNorVertices(){
+    float mod;
+    float Nx,Ny,Nz;
+    
+    for (int i=0;i<n_vertices;i++){
+        Nx=Ny=Nz=0;
+        for (int j=0;j<n_caras;j++){
+            if (caras[j].x == i || caras[j].y == i || caras[j].z == i){
+                Nx += normales[j].x; //Calculamos las normales vertices cada cara
+                Ny += normales[j].y;
+                Nz += normales[j].z;
+            }
+        }
+        mod = sqrtf(Nx*Nx + Ny*Ny + Nz*Nz);
+        Nx /= mod;
+        Ny /= mod;
+        Nz /= mod;
+
+        norVert.push_back({Nx,Ny,Nz});
+    }
 }
 
 void Figura::draw(int tipo, float tamanioPunto){
@@ -225,6 +249,26 @@ void Figura::tipoNormales(){
         }
         glEnd();
 
+        
+
+        glDrawElements( GL_TRIANGLES, tablaCaras.size(), GL_UNSIGNED_INT, &tablaCaras[0] ) ;
+
+        /**
+        NORMALES VERTICES
+        */
+        glPointSize(5);
+    glColor3f(1,0,1);
+    glBegin(GL_LINES);
+    for(int i = 0; i<norVert.size(); i++){
+        glVertex3f( (vertices[i].x+norVert[i].x), //Sumamos los vertices con las normales
+                    (vertices[i].y+norVert[i].y), 
+                    (vertices[i].z+norVert[i].z));
+        glVertex3f( vertices[i].x, 
+                    vertices[i].y, 
+                    vertices[i].z);
+    }
+    glEnd();
+
 }
 
 void Figura::solido(){
@@ -235,7 +279,7 @@ void Figura::solido(){
 
 void Figura::lineas(){
         if (tablaCaras.size()>0 && tablaVertices.size()>0) {
-                glPolygonMode(GL_FRONT, GL_LINE);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
                 glDrawElements(GL_TRIANGLES, tablaCaras.size(), GL_UNSIGNED_INT,&tablaCaras[0]);
         }
 }
@@ -291,6 +335,7 @@ void Figura::creaTabla(){
         tablaVertices.clear(); //Si se vuelve a llamar, la tabla se destruye y se vuelve a construir
         tablaCaras.clear();
         tablaNormales.clear();
+        tablaNorVert.clear();
 
         for (int i=0; i<n_vertices; i++) {
                 tablaVertices.push_back(vertices[i].x);
@@ -310,6 +355,12 @@ void Figura::creaTabla(){
                 tablaNormales.push_back(normales[i].x);
                 tablaNormales.push_back(normales[i].y);
                 tablaNormales.push_back(normales[i].z);
+        }
+
+        for (int i=0;i<norVert.size();i++){
+            tablaNorVert.push_back(norVert[i].x);
+            tablaNorVert.push_back(norVert[i].y);
+            tablaNorVert.push_back(norVert[i].z);
         }
 }
 

@@ -16,6 +16,7 @@ std::vector<float> tablaVertices;  //Correspondencia vertices y caras
 std::vector<int> tablaCaras;  //Correspondencia vertices y caras
 std::vector<float> colores;   //Color para cada vertice
 std::vector<float> tablaNormales;
+std::vector<float> tablaNorVert;
 
 int n_vertices;
 int n_caras;
@@ -43,6 +44,7 @@ void insertarDatos(vector<_vertex3f> v,vector<_vertex3i> c);
 
 public:
 std::vector<_vertex3f> normales;
+std::vector<_vertex3f> norVert;
 //Constructor
 Figura();
 /**
@@ -94,6 +96,8 @@ float getAltoMin();
 float getAnchoMin();
 
 void calcularNormales();
+
+void calcularNorVertices();
 
 void setColores(float r,float g,float b);
 
