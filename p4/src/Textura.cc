@@ -1,10 +1,10 @@
 #include "Textura.h"
 
 Textura::Textura(){
-	m=10;
-	n=10;
+	m=10000;
+	n=10000;
 	inicializarCuadro(10,10);
-	cargarTextura("imperial");
+	cargarTextura("lavaredo.bmp");
 	// dibujarTextura();
 }
 
@@ -19,11 +19,11 @@ void Textura::inicializarCuadro(float m,float n){
 
 	//Ahora rellenamos el vector de vertices y caras para la textura,  también en forma de triangulos
 	verticesTex = {{1.0,1.0},{0.0,1.0},{1.0,0.0},{0.0,0.0}};
-	carasTex = {{0,3,1},{0,2,3}};
+	carasTex = {{0,3,1},{2,3,0}};
 }
 
 void Textura::cargarTextura(string file){
-	TexBits = LoadDIBitmap("imperial.bmp",&TexInfo);
+	TexBits = LoadDIBitmap(file.c_str(),&TexInfo);
 }
 
 int Textura::getM(){return m;}
@@ -32,7 +32,7 @@ int Textura::getN(){return n;}
 
 void Textura::dibujarTextura(){
 	
-
+	glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SINGLE_COLOR);
 	//Los vertices de la textura van de 1.0 a 0.0 t, igual para s
 	//Creamos un vector de vertices y de caras para la textura
 	glClearColor(1.0,1.0,1.0,0.0);
@@ -53,25 +53,24 @@ void Textura::dibujarTextura(){
 		//Activar texturas
 		glEnable(GL_TEXTURE_2D);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		//Dibujamos el cuadrado
-		glBegin(GL_POLYGON);
-		//Asignamos a cada vertice la textura correspondiente
-		glTexCoord2f(1.0,1.0);
-		glVertex2f(vertices[0].x,vertices[0].y);
-		glTexCoord2f(1.0,0.0);
-		glVertex2f(vertices[2].x,vertices[2].y);
-		glTexCoord2f(0.0,0.0);
-		glVertex2f(vertices[3].x,vertices[3].y);
-		glTexCoord2f(0.0,1.0);
-		glVertex2f(vertices[1].x,vertices[1].y);
-		glEnd();
 
-		// glBegin(GL_TRIANGLES);
-		// for (int i=0;i<static_cast<int>(caras.size());i++){
-		// 	glTexCoord2f(verticesTex[carasTex[i].x].x,verticesTex[carasTex[i].y].y);
-		// 	glVertex2f(vertices[caras[i].x].x,vertices[caras[i].y].y);
-		// }
-		// glEnd();
+		   glBegin(GL_TRIANGLES);
+
+		   for(int i=0; i<caras.size(); ++i) {
+		     
+		       glTexCoord2f(verticesTex[carasTex[i]._0].x,verticesTex[carasTex[i]._0].y);
+		     glVertex3fv((GLfloat *) &vertices[caras[i]._0]);
+
+		     
+		       glTexCoord2f(verticesTex[caras[i]._1].x,verticesTex[caras[i]._1].y);
+		     glVertex3fv((GLfloat *) &vertices[caras[i]._1]);
+
+		     
+		       glTexCoord2f(verticesTex[caras[i]._2].x,verticesTex[caras[i]._2].y);
+		     glVertex3fv((GLfloat *) &vertices[caras[i]._2]);
+		   }
+
+		   glEnd();
 
 
 		glDisable(GL_TEXTURE_2D);

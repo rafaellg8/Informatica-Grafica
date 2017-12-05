@@ -3,9 +3,7 @@
 
 #include "ejes.h"
 #include "figura.h"
-#include "cubo.h"
-#include "tetraedro.h"
-#include "piramide.h"
+
 #include "ObjetoPLY.h"
 
 #include <vector>

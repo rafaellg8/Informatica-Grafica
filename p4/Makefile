@@ -37,7 +37,7 @@ BIN = bin
 
 # definicion de objetos
 #
-OBJECTS= $(OBJ)/Bitmap.o $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/Luz.o $(OBJ)/Direccional.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/Textura.o
+OBJECTS= $(OBJ)/Bitmap.o $(OBJ)/practica.o $(OBJ)/escena.o $(OBJ)/ejes.o $(OBJ)/figura.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/Luz.o $(OBJ)/Direccional.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/Textura.o
 # orden que sera ejecutada por defecto
 #
 default : $(OBJ)/practica.o
@@ -47,7 +47,7 @@ default : $(OBJ)/practica.o
 $(TARGETS) : $(OBJECTS)
 
 $(OBJ)/practica.o: $(OBJECTS)
-	$(CC) -o $(BIN)/practica $(OBJ)/Bitmap.o $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/cubo.o $(OBJ)/tetraedro.o $(OBJ)/piramide.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/Luz.o $(OBJ)/Direccional.o $(OBJ)/Textura.o $(OBJ)/escena.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
+	$(CC) -o $(BIN)/practica $(OBJ)/Bitmap.o $(OBJ)/ejes.o  $(OBJ)/figura.o $(OBJ)/file_ply_stl.o $(OBJ)/ObjetoPLY.o $(OBJ)/Perfil.o $(OBJ)/cabina.o $(OBJ)/Hexagono.o $(OBJ)/Alas.o $(OBJ)/Canion.o $(OBJ)/Rayo.o $(OBJ)/CazaTie.o $(OBJ)/Luz.o $(OBJ)/Direccional.o $(OBJ)/Textura.o $(OBJ)/escena.o $(SRC)/practica.cc $(CXXFLAGS) $(LDFLAGS) -I $(INC)
 
 $(OBJ)/escena.o: $(SRC)/escena.cc $(OBJ)/Luz.o
 	$(CC) $(CXXFLAGS) -c $(SRC)/escena.cc -o $(OBJ)/escena.o -I $(INC)

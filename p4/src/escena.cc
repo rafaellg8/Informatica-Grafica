@@ -41,23 +41,6 @@ Escena::Escena() {
     // cout<<"\nIntroduzca el tamaño de la arista de las figuras, se recomienda en torno a 25 para correcta visualizacion"<<endl;
     // cin>>lado;
 
-    if (lado > 0) {
-        Cubo cubo(lado); //Creamos el cubo
-        Tetraedro tetraedro(lado);
-        Piramide piramide(lado);
-        figuras.push_back(cubo); //Insertamos el cubo en la escena
-        figuras.push_back(tetraedro);
-        figuras.push_back(piramide);
-    }
-    else {
-        Cubo cubo;
-        Tetraedro tetraedro;
-        Piramide piramide;
-        figuras.push_back(cubo); //Insertamos el cubo en la escena
-        figuras.push_back(tetraedro);
-        figuras.push_back(piramide);
-    }
-
     string inputFile = "ant.ply";
     // cout<<"\nIntroduzca el nombre del fichero ply, sin direccion absoluta. Ej: cow.ply"<<endl;
     // cin>>inputFile;
@@ -159,35 +142,8 @@ int Escena::teclaPulsada(unsigned char Tecla1, int x, int y) {
         return 0;
         break;
 
-    case '1':
-        figuraActual = 0;
-        change_projection();
-        return 0;
-        break;
-
-    case '2':
-        figuraActual = 1;
-        change_projection();
-        return 0;
-        break;
-
-    case '3':
-        figuraActual = 2;
-        change_projection();
-        return 0;
-        break;
-
     case '4':
-        figuraActual = 3;
-        change_projection();
-        return 0;
-        break;
-
-    case '5':
-        cout << "\nPintando revolucion completa" << endl;
-        figuraActual = 4;
-        perfil.pinta(true, true, true);
-        figuras[4] = perfil; //Perfil actualizado
+        figuraActual = 0;
         change_projection();
         return 0;
         break;
